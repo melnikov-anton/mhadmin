@@ -20,6 +20,6 @@ if(isset($_SERVER['PATH_INFO'])) {
 
 var_dump($url);
 echo "</br>";
-echo translit('Привет Прощай цыпочки цыплёнок');
+echo translit('Прощай цыпочки цыплёнок');
 echo "</br>";
 echo create_username('Антон', 'Мельников');
