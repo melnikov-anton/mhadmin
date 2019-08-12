@@ -7,21 +7,21 @@
   $menu = json_decode($mstr, true);
   //var_dump($menu);
 
+  $cat = 'Admin';
 
 
-
-echo '<div style="width: 300px; border-style: solid;">';
+echo '<div style="background-color: orange; border-radius: 15px; width: 250px; border-style: solid;">';
 
     echo "<ul>";
-    foreach ($menu as $key => $val) {
+    foreach ($menu[$cat] as $key => $val) {
       if(is_array($val)) {
         echo "<li>$key <ul>";
         foreach ($val as $k => $v) {
-          echo "<li>$k</li>";
+          echo '<li><a href="' . $v . '">' . $k . '</a></li>';
         }
         echo "</ul></li>";
       }else {
-        echo "<li> $key </li>";
+        echo '<li><a href="' . $val . '">' . $key . '</a></li>';
       }
     }
     echo "</ul>";

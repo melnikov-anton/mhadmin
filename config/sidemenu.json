@@ -1,11 +1,24 @@
 {
-      "Учетная запись" : "account",
-      "Стартовая страница" : "home",
+  "User" : {
+      "Учетная запись" : "../account",
+      "Стартовая страница" : "../home",
       "Sites" : {
-        "Site 1" : "site1",
-        "Site 2" : "site2",
-        "Site 3" : "site3"
+        "Site 1" : "../site1",
+        "Site 2" : "../site2",
+        "Site 3" : "../site3"
       },
-      "Log Out" : "logout",
-      "Register" : "register"
+      "Выход" : "../logout",
+      "Регистрация" : "../register"
+    },
+
+    "Admin" : {
+      "Учетная запись" : "../account",
+      "Пользователи" : "../users",
+      "Sites" : {
+        "Site 1" : "../site1",
+        "Site 2" : "../site2"
+      },
+      "Выход" : "../logout",
+      "Регистрация" : "../register"
+    }
   }
