@@ -1,0 +1,71 @@
+html, body {height:100%;}
+
+#loginContainer {
+  width: 70%;
+  min-width: 1024px;
+  margin: auto;
+  border: 1px solid;
+  border-radius: 15px;
+  height:100%
+}
+
+#loginWellcome {
+  width: 70%;
+  margin: auto;
+  margin-top: 40px;
+  border: 1px solid;
+  border-radius: 15px;
+}
+
+#loginWellcome p, h3 {
+  text-align: center;
+  font-size: 18px;
+}
+
+#loginForm {
+  font-size: 18px;
+  min-width: 320px;
+  width: 15%;
+  border: 1px solid;
+  border-radius: 15px;
+  padding-top: 40px;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  margin-bottom: 100px;
+
+}
+
+#loginForm input[type=text], input[type=password] {
+  min-width: 250px;
+  font-size: 14px;
+}
+
+#loginForm input[type=text]:focus, input[type=password]:focus {
+  background-color: lightblue;
+}
+
+#loginForm input[type=submit] {
+    background-color: lightblue;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 7px 20px;
+    cursor: pointer;
+  }
+  #loginForm input[type=submit]:active {
+    background-color: blue;
+  }
+
+#loginFooter {
+  //position: absolute;
+  //bottom: 10px;
+
+}
+
+#loginFooter p {
+  //float: right;
+  text-align: right;
+}
