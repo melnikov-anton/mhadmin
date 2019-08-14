@@ -1,15 +1,15 @@
-html, body {height:100%;}
+html, body {height: 100%;}
 
-#loginContainer {
+.Container {
   width: 70%;
   min-width: 1024px;
   margin: auto;
   border: 1px solid;
   border-radius: 15px;
-  height:100%
+  height: 100%;
 }
 
-#loginWellcome {
+.Description {
   width: 70%;
   margin: auto;
   margin-top: 40px;
@@ -17,55 +17,74 @@ html, body {height:100%;}
   border-radius: 15px;
 }
 
-#loginWellcome p, h3 {
+.Description p, h3, h4 {
   text-align: center;
   font-size: 18px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
-#loginForm {
+.Form {
   font-size: 18px;
   min-width: 320px;
   width: 15%;
   border: 1px solid;
   border-radius: 15px;
-  padding-top: 40px;
-  padding-right: 50px;
+  padding-top: 30px;
+  padding-right: 30px;
   padding-bottom: 30px;
   padding-left: 50px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 80px;
-  margin-bottom: 100px;
+  margin-top: 70px;
+  margin-bottom: 80px;
 
 }
 
-#loginForm input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   min-width: 250px;
   font-size: 14px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 15px;
 }
 
-#loginForm input[type=text]:focus, input[type=password]:focus {
+label {
+  margin: 10px;
+
+}
+
+#pr {
+  min-height: 90px;
+  max-height: 90px;
+  min-width: 250px;
+  max-width: 250px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
   background-color: lightblue;
 }
 
-#loginForm input[type=submit] {
+input[type=submit] {
     background-color: lightblue;
     border-radius: 10px;
     font-size: 14px;
     padding: 7px 20px;
     cursor: pointer;
   }
-  #loginForm input[type=submit]:active {
+input[type=submit]:active {
     background-color: blue;
   }
 
-#loginFooter {
+.Footer {
   //position: absolute;
   //bottom: 10px;
 
 }
 
-#loginFooter p {
+.Footer p {
   //float: right;
   text-align: right;
 }

@@ -9,8 +9,8 @@
   </head>
 
   <body>
-  <div id="loginContainer">
-    <div id="loginWellcome">
+  <div class="Container">
+    <div class="Description">
       <h3>Добро пожаловать в приложение Mini Hosting Admin!</h3>
       <p>Приложение предназначено для размещения Web-сайтов на локальном Web-сервере.</p>
       <p>Зарегистрированные пользователи могут создавать и настраивать Web-сайты,
@@ -20,23 +20,25 @@
 
     </div>
 
-    <div id="loginForm">
+    <div class="Form">
       <form action="/user/login" method="post">
         <label for="un">Имя пользователя</label>
         </br>
-        <input type="text" id="un" name="username">
+        <input type="text" id="un" name="username" required>
         </br>
         <label for="pw">Пароль</label>
         </br>
-        <input type="password" id="pw" name="password">
+        <input type="password" id="pw" name="password" required>
         </br></br>
         <input type="submit" value="Войти">
-        <a href="/user/register">Регистрация</a>
+        <a href="/user/regpage">Регистрация</a>
       </form>
     </div>
+    <div class="Message">
+      
+    </div>
 
-
-    <div id="loginFooter">
+    <div class="Footer">
       <p>Anton Melnikov <?php echo date("Y") ?></p>
     </div>
   </div>
