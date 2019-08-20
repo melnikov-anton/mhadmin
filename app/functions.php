@@ -33,7 +33,7 @@ function translit($stroka) {
 function create_username($fname, $lname) {
   $fname=translit($fname);
   $lname=translit($lname);
-  $str = substr($fname, 0, 4) . substr($lname, 0, 4);
+  $str = substr($fname, 0, 3) . substr($lname, 0, 3);
   $str = strtolower($str) . substr(strval(time()), -2, 2);
   return $str;
 }
