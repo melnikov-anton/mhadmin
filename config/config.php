@@ -6,3 +6,4 @@ define('DB_USER', 'mhadmin');
 define('DB_PASSWORD', 'mhadmin');
 define('DB_HOST', '127.0.0.1');
 //-------------------------------
+define('DEFAULT_CONTROLLER', 'Home');
