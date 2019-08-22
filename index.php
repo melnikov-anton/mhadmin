@@ -20,36 +20,26 @@ spl_autoload_register('autoload');
 session_start();
 
 //-------------------------------------
-echo 'Wellcome to MHAdmin!!!</br>';
+//echo 'Wellcome to MHAdmin!!!</br>';
 //echo $_SERVER['PATH_INFO'] . '</br>';
 //echo $_SERVER['QUERY_STRING'] . '</br>';
 
 if(isset($_SERVER['PATH_INFO'])) {
-  $rli=explode('/', ltrim($_SERVER['PATH_INFO'], '/'));
+  $url=explode('/', ltrim($_SERVER['PATH_INFO'], '/'));
 } else {
-  $rli=[];
+  $url=[];
 }
 
-var_dump($rli);
-
-Router::route($rli);
+Router::route($url);
 
 //echo password_hash("antmel01", PASSWORD_BCRYPT);
-echo "</br>";
+
 //echo password_hash("123456", PASSWORD_BCRYPT);
 
-/*if($_SERVER['REQUEST_METHOD']=='POST') {
-  $db = Db::getConnection();
 
-  $res = $db->checkUser($_POST['username'], $_POST['password']);
-  //var_dump($res);
-    if($res) {
-      echo $res['fname'] . " " . $res['lname'] . "</br>";
-      echo "Usertype: " . $res['usertype'];
-    } else echo "Имя пользователя или пароль не правильные!";
-}*/
 //var_dump($_POST);
 //$db = Db::getConnection();
+//var_dump($db->checkUniqueUsername('petvas89'));
 //$aa = $db->sqlQuery('SELECT fname, lname FROM users WHERE username= ?', ['antmel01']);
 //$aa = $db->sqlQuery('SELECT * FROM users WHERE username= ? AND lname= ?', ['antmel01', 'Мельников']);
 //$aa = $db->sqlQuery("SELECT ?, ? FROM users", ['fname', 'lname']);

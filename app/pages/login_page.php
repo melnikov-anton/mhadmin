@@ -31,11 +31,11 @@
         <input type="password" id="pw" name="password" required>
         </br></br>
         <input type="submit" value="Войти">
-        <a href="/user/regpage">Регистрация</a>
+        <a href="/home/regpage">Регистрация</a>
       </form>
     </div>
     <div class="Message">
-      
+
     </div>
 
     <div class="Footer">

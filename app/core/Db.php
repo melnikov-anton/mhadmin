@@ -12,7 +12,7 @@ class Db {
     } catch(PDOException $e) {
       die($e->getMessage());
     }
-    $this->$_instHash = md5($dbName . $dbUser);
+    $this->_instHash = md5($dbName . $dbUser);
     self::$_instances[] = $this;
   }
 
@@ -23,7 +23,7 @@ class Db {
 
     } else {
       foreach (self::$_instances as $key => $inst) {
-        if($inst->$_instHash === md5($dbName . $dbUser)) {
+        if($inst->_instHash === md5($dbName . $dbUser)) {
           return self::$_instances[$key];
         }
       }
@@ -35,6 +35,7 @@ class Db {
 //-----------------------------------------------------------
   public function sqlQuery ($sql, $params = []) {
     $this->_error = false;
+    $this->_numb = 0;
     try {
       $stat = $this->_pdo->prepare($sql);
       if(!is_array($params)) {
@@ -85,6 +86,19 @@ class Db {
   }
 //--------------------------------------------------------------
 
+  public function checkUniqueUsername ($uname) {
+    if(!isset($uname)) {return false;}
+      $sql = "SELECT * FROM users WHERE username= ?";
+      $res = $this->sqlQuery($sql, $uname);
+      if($this->_numb == 0) {
+        return true;
+      } else {
+        return false;
+      }
+
+  }
+
+//--------------------------------------------------------------
   public function saveUserInDb ($userData = []) {
     $fieldStr = '';
     $valStr = '';
@@ -101,6 +115,7 @@ class Db {
     var_dump($values);
     return $this->sqlQuery($sql, $values);
   }
+//-----------------------------------------------------------------
 
   public function saveSiteInDb ($siteData = []) {
     $fieldStr = '';

@@ -1,5 +1,6 @@
 <?php
 
+
 // транслитерация
 function translit($stroka) {
   $converter = array(

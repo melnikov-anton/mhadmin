@@ -21,15 +21,20 @@ class Router {
     array_shift($url);
 
     $urlParams = $url;
-    
-    $instance = new $controller();
 
-    if(method_exists($instance, $action)) {
+    if(method_exists($controller, $action)) {
+      $instance = new $controller();
       call_user_func_array([$instance, $action], $urlParams);
     } else {
-      die('Нет такого класса или метода');
+        self::showErrorPage();
     }
 
+  }
+
+  public static function showErrorPage () {
+    header("HTTP/1.1 404 Not Found");
+    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'error404.html');
+    die();
   }
 
 }

@@ -3,8 +3,11 @@
 class Home {
 
   public function indexAction() {
-    echo "Home";
-    require_once(ROOT . DS . 'app' . DS . 'login_page.php');
+    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'login_page.php');
+  }
+
+  public function regpageAction() {
+    require_once(ROOT . DS . 'app' . DS . 'pages' . DS .'register_page.php');
   }
 
 }
