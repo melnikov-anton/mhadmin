@@ -30,11 +30,35 @@ function translit($stroka) {
  return strtr($stroka, $converter);
 }
 
-// создание юзернейма
-function create_username($fname, $lname) {
-  $fname=translit($fname);
-  $lname=translit($lname);
-  $str = substr($fname, 0, 3) . substr($lname, 0, 3);
-  $str = strtolower($str) . substr(strval(time()), -2, 2);
-  return $str;
+function print_data($data) {
+  echo "<pre>";
+  print_r($data);
+  echo "</pre>";
+}
+
+//очистка массива с регистрационными данными
+function sanitize_reg_array($reg_array = []) {
+  $args = [
+    'fname' => FILTER_SANITIZE_STRING,
+    'lname' => FILTER_SANITIZE_STRING,
+    'email' => FILTER_SANITIZE_EMAIL,
+    'password' => FILTER_SANITIZE_STRING,
+    'rep_pass'  => FILTER_SANITIZE_STRING,
+    'rest'     => FILTER_SANITIZE_STRING
+  ];
+  $reg = filter_var_array($reg_array, $args, false);
+  if($reg['password'] == '') {
+    $reg['password'] = '1234'; //пароль, если произошла полная очистка
+  }
+  return $reg;
+}
+
+//очистка массива с входными данными
+function sanitize_log_array($log_array = []) {
+  $args = [
+    'username' => FILTER_SANITIZE_STRING,
+    'password' => FILTER_SANITIZE_STRING
+  ];
+  $log = filter_var_array($log_array, $args, false);
+  return $log;
 }

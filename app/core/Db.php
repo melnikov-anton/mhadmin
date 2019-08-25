@@ -53,12 +53,14 @@ class Db {
       if($stat->execute()) {
         if(preg_match("/select/i", $sql)) {
           //$this->_result = $stat->setFetchMode(PDO::FETCH_ASSOC);
+          
           $this->_result = $stat->fetchAll(PDO::FETCH_ASSOC);
           $this->_numb = $stat->rowCount();
           $this->_lastInsertID = $this->_pdo->lastInsertId();
         } else {return true;}
       } else {
         $this->_error = true;
+        return false;
       }
 
     } catch(PDOException $e) {
@@ -86,6 +88,8 @@ class Db {
   }
 //--------------------------------------------------------------
 
+//--------------------------------------------------------------
+
   public function checkUniqueUsername ($uname) {
     if(!isset($uname)) {return false;}
       $sql = "SELECT * FROM users WHERE username= ?";
@@ -111,8 +115,8 @@ class Db {
     $fieldStr = rtrim($fieldStr, ',');
     $valStr = rtrim($valStr, ',');
     $sql = "INSERT IGNORE INTO users ({$fieldStr}) VALUES ({$valStr})";
-    var_dump($sql);
-    var_dump($values);
+    //var_dump($sql);
+    //var_dump($values);
     return $this->sqlQuery($sql, $values);
   }
 //-----------------------------------------------------------------
