@@ -19,7 +19,6 @@ class UserModel {
     if($res['usertype'] == 'admin') {
       $this->_isAdmin = true;
     }
-    setcookie("UserName", $this->_uname, "/");
     self::$_users[] = $this;
 
   }
@@ -34,7 +33,7 @@ class UserModel {
     }
     $dbc = Db::getConnection();
     $un = UserModel::createUserName($user_data['fname'], $user_data['lname']);
-    //$uun = $dbc->checkUniqueUsername($un);
+
     while (!$dbc->checkUniqueUsername($un)) {
       $un = UserModel::createUserName($user_data['fname'], $user_data['lname']);
       usleep(200000);
@@ -43,25 +42,27 @@ class UserModel {
     $user_data['password'] = password_hash($user_data['password'], PASSWORD_BCRYPT);
 
     if($dbc->saveUserInDb($user_data)) {
-      $us = new UserModel($user_data['username']);
-      print_data($us);
+      $_SESSION['username'] = $user_data['username'];
+      //print_data($us);
       return true;
-    } else return false;
+    } else {return false;}
 
   }
 
-  public static function getUser($uname) {
-    if(empty(self::$_users)) {
+/*  public static function getUser($uname) {
+    print_data(self::$_users);
+    /*if(!isset(self::$_users)) {
+      echo "111";
       return false;
-    } else {
-      foreach (self::$_users as $user) {
+    } else {*/
+/*      foreach (self::$_users as $key => $user) {
         if($user->_session == md5(session_id() . $uname)) {
           return $user;
         }
       }
-    }
+  //  }
     return false;
-  }
+  } */
 
   public static function createUserName($fname, $lname) {
     $fname=translit($fname);
@@ -92,7 +93,7 @@ class UserModel {
   }
 
   public function logout() {
-    setcookie("UserName", "", time()-10, "/");
+    unset ($_SESSION['username']);
   }
 
 }

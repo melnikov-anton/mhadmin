@@ -17,7 +17,8 @@ function autoload($className) {
 spl_autoload_register('autoload');
 //-----------------------------------
 
-session_start();
+Session::startSession();
+
 
 //-------------------------------------
 //echo 'Wellcome to MHAdmin!!!</br>';

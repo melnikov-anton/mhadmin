@@ -10,6 +10,7 @@ class Db {
       $this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . $dbName, $dbUser, $dbPass);
       $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e) {
+      
       die($e->getMessage());
     }
     $this->_instHash = md5($dbName . $dbUser);
@@ -53,7 +54,7 @@ class Db {
       if($stat->execute()) {
         if(preg_match("/select/i", $sql)) {
           //$this->_result = $stat->setFetchMode(PDO::FETCH_ASSOC);
-          
+
           $this->_result = $stat->fetchAll(PDO::FETCH_ASSOC);
           $this->_numb = $stat->rowCount();
           $this->_lastInsertID = $this->_pdo->lastInsertId();
@@ -72,7 +73,7 @@ class Db {
 //-------------------------------------------------------------
   public function checkUser ($uname, $passw) {
     if(!isset($uname)) {return false;}
-      $sql = "SELECT * FROM users WHERE username= ?";
+      $sql = "SELECT username, password FROM users WHERE username= ?";
       $res = $this->sqlQuery($sql, $uname);
     /*  $stat = $this->_pdo->prepare($sql);
       $stat->bindValue(':uname', $uname);
@@ -82,7 +83,7 @@ class Db {
 
     if($this->_numb == 1) {
       if(password_verify($passw, $res[0]['password'])) {
-        return $res[0];
+        return true;
       } else return false;
     }
   }
@@ -117,7 +118,11 @@ class Db {
     $sql = "INSERT IGNORE INTO users ({$fieldStr}) VALUES ({$valStr})";
     //var_dump($sql);
     //var_dump($values);
-    return $this->sqlQuery($sql, $values);
+    if($this->sqlQuery($sql, $values)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 //-----------------------------------------------------------------
 

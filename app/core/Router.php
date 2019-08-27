@@ -31,10 +31,18 @@ class Router {
 
   }
 
-  public static function showErrorPage () {
-    header("HTTP/1.1 404 Not Found");
-    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'error404.html');
+  public static function showErrorPage ($msg = MSG_404) {
+    if($msg == MSG_404) {
+      header("HTTP/1.1 404 Not Found");
+    }
+    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'error_page.php');
     die();
   }
+
+  public static function showSuccessPage ($msg = MSG_REG_SUC) {
+    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'success_page.php');
+    die();
+  }
+
 
 }

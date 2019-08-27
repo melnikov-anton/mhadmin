@@ -3,13 +3,32 @@
 class Home {
 
   public function indexAction() {
-    setcookie("UserTest", "TestName", "/");
+    if(isset($_SESSION['username'])) {
+      header('Location: /user/account');
+    } else {
+      header('Location: /home/logpage');
+    }
+  }
+
+  public function logpageAction() {
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'login_page.php');
   }
 
   public function regpageAction() {
-    setcookie("UserTest", "", time()-10, "/");
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS .'register_page.php');
   }
+
+  public function wrongAction() {
+    if(isset($_SESSION['wrong_msg'])) {
+      Router::showErrorPage($_SESSION['wrong_msg']);
+    } else {
+      Router::showErrorPage();
+    }
+  }
+
+  public function successAction() {
+    Router::showSuccessPage();
+  }
+
 
 }
