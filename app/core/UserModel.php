@@ -2,20 +2,20 @@
 
 class UserModel {
   private static $_users = array();
-  private $_uid, $_fname, $_lname, $_uname, $_rest, $_sites, $_db, $_session, $_isAdmin = false;
+  private $_uid, $_fname, $_lname, $_uname, $_email, $_rest, $_sites, $_isAdmin = false;
 
 
   public function __construct($username) {
-    $this->_db = Db::getConnection();
+    $db = Db::getConnection();
     $sql = "SELECT * FROM users WHERE username= ?";
-    $res = $this->_db->sqlQuery($sql, $username);
+    $res = $db->sqlQuery($sql, $username);
     $res = $res[0];
     $this->_uid = $res['id_user'];
     $this->_fname = $res['fname'];
     $this->_lname = $res['lname'];
     $this->_uname = $res['username'];
+    $this->_email = $res['email'];
     $this->_rest = $res['rest'];
-    $this->_session = md5(session_id() . $this->_uname);
     if($res['usertype'] == 'admin') {
       $this->_isAdmin = true;
     }
@@ -49,20 +49,6 @@ class UserModel {
 
   }
 
-/*  public static function getUser($uname) {
-    print_data(self::$_users);
-    /*if(!isset(self::$_users)) {
-      echo "111";
-      return false;
-    } else {*/
-/*      foreach (self::$_users as $key => $user) {
-        if($user->_session == md5(session_id() . $uname)) {
-          return $user;
-        }
-      }
-  //  }
-    return false;
-  } */
 
   public static function createUserName($fname, $lname) {
     $fname=translit($fname);
@@ -92,8 +78,12 @@ class UserModel {
     return $this->_rest;
   }
 
-  public function logout() {
-    unset ($_SESSION['username']);
+  public function getUsername() {
+    return $this->_uname;
+  }
+
+  public function getEmail() {
+    return $this->_email;
   }
 
 }

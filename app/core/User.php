@@ -32,16 +32,25 @@ class User {
     }
   }
 
-  public function accountAction() {
+  public function accountAction($arg1='', $arg2='') {
     if(isset($_SESSION['username'])) {
-      $user = new UserModel($_SESSION['username']);
-      print_data($user);
+      require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'account_page.php');
 
     } else {
       header('Location: /');
     }
   }
 
+  public function logoutAction() {
+    if(isset($_SESSION['username'])) {
+      //$user = new UserModel($_SESSION['username']);
+      unset ($_SESSION['username']);
+      header('Location: /');
+    } else {
+      header('Location: /');
+      //echo "ERROR";
+    }
+  }
 
 
 }

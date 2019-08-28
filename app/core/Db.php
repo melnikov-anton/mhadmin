@@ -10,7 +10,7 @@ class Db {
       $this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . $dbName, $dbUser, $dbPass);
       $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e) {
-      
+
       die($e->getMessage());
     }
     $this->_instHash = md5($dbName . $dbUser);
@@ -140,6 +140,16 @@ class Db {
     $sql = "INSERT IGNORE INTO sites ({$fieldStr}) VALUES ({$valStr})";
 
     return $this->sqlQuery($sql, $values);
+  }
+
+  public function getUsersList() {
+      $sql = "SELECT id_user, fname, lname, username, email, usertype FROM users";
+      $res = $this->sqlQuery($sql);
+      if($this->_numb == 0) {
+        return 0;
+      } else {
+        return $res;
+      }
   }
 
 }

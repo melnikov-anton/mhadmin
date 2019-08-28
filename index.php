@@ -36,26 +36,3 @@ Router::route($url);
 //echo password_hash("antmel01", PASSWORD_BCRYPT);
 
 //echo password_hash("123456", PASSWORD_BCRYPT);
-
-
-//var_dump($_POST);
-//$db = Db::getConnection();
-//var_dump($db->checkUniqueUsername('petvas89'));
-//$aa = $db->sqlQuery('SELECT fname, lname FROM users WHERE username= ?', ['antmel01']);
-//$aa = $db->sqlQuery('SELECT * FROM users WHERE username= ? AND lname= ?', ['antmel01', 'Мельников']);
-//$aa = $db->sqlQuery("SELECT ?, ? FROM users", ['fname', 'lname']);
-//$aa = $db->sqlQuery("SELECT fname, lname FROM users");
-//var_dump($aa);
-
-//$sq = 'INSERT INTO users (fname, lname, username, password) VALUES (?, ?, ?, ?)';
-//$par = ['Петр', 'Васечкин', create_username('Петр', 'Васечкин'), password_hash("123456", PASSWORD_BCRYPT)];
-//$b = $db->sqlQuery($sq, $par);
-//var_dump($b);
-/*$uData = [
-  'fname' => 'Иван',
-  'lname' => 'Сидоров',
-  'username' => 'ivasid25',
-  'password' => password_hash("123456", PASSWORD_BCRYPT)
-];
-$ins = $db->saveUserInDb($uData);
-var_dump($ins);*/

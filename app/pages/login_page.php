@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--изменить ссылку на файл стилей-->
     <link rel="stylesheet" type="text/css" href="../css/mhadmin.css">
@@ -15,7 +16,7 @@
 
     <div class="row mt-5">
       <div class="col-md-8 mx-auto border border-primary rounded-lg p-4 bg-light">
-        <h3 class="text-center">Добро пожаловать в приложение Mini Hosting Admin!</h3>
+        <h3 class="text-center">Добро пожаловать в приложение Mini-Hosting Admin!</h3>
         <p class="text-center">Приложение предназначено для размещения Web-сайтов на локальном Web-сервере.</p>
         <p class="text-center">Зарегистрированные пользователи могут создавать и настраивать Web-сайты,
         реализованные на Web-сервере Apache, используя скриптовые языки программирования
