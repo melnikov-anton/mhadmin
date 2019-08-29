@@ -1,5 +1,5 @@
 {
-  "User" : {
+  "user" : {
       "Учетная запись" : "/user/account",
       "Сайты пользователя:" : {
         "Site 1" : "/site1",
@@ -10,13 +10,10 @@
       "Выход" : "/user/logout"
     },
 
-    "Admin" : {
+    "admin" : {
       "Учетная запись" : "/user/account",
       "Пользователи" : "/user/account/users",
-      "Сайты" : {
-        "Site 1" : "../site1",
-        "Site 2" : "../site2"
-      },
+      "Сайты" : "/user/account/sites",
       "Выход" : "/user/logout"
     }
   }

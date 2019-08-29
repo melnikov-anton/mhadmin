@@ -12,7 +12,7 @@
 
 
     echo '<ul class="nav nav-pills nav-justified flex-column">';
-    foreach ($menu[$cat] as $key => $val) {
+    foreach ($menu[USER_ROLE] as $key => $val) {
       if(is_array($val)) {
         echo '<li class="nav-link">' . $key . '<ul class="nav nav-pills nav-justified flex-column">';
         foreach ($val as $k => $v) {

@@ -143,12 +143,22 @@ class Db {
   }
 
   public function getUsersList() {
-      $sql = "SELECT id_user, fname, lname, username, email, usertype FROM users";
+      $sql = "SELECT id_user, fname, lname, username, email, rest, usertype FROM users";
       $res = $this->sqlQuery($sql);
       if($this->_numb == 0) {
         return 0;
       } else {
         return $res;
+      }
+  }
+
+  public function getUserDataById($id) {
+      $sql = "SELECT id_user, fname, lname, username, email, rest, usertype FROM users WHERE id_user= ?";
+      $res = $this->sqlQuery($sql, $id);
+      if($this->_numb == 0) {
+        return false;
+      } else {
+        return $res[0];
       }
   }
 

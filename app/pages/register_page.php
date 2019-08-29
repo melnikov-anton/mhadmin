@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <title>MH Admin: Регистрация</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--изменить ссылку на файл стилей-->
@@ -20,7 +21,7 @@
       </div>
 
     <div class="row mt-4">
-      <div class="col-md-4 mx-auto border border-primary rounded-lg p-4 bg-light">
+      <div class="col-md-4 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg">
         <form action="/user/register" method="post">
           <div class="form-group">
             <label for="fn">*Имя</label>

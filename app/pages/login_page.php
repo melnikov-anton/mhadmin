@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <title>MH Admin: Вход</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--изменить ссылку на файл стилей-->
@@ -15,7 +16,7 @@
   <div class="container-fluid">
 
     <div class="row mt-5">
-      <div class="col-md-8 mx-auto border border-primary rounded-lg p-4 bg-light">
+      <div class="col-md-8 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg">
         <h3 class="text-center">Добро пожаловать в приложение Mini-Hosting Admin!</h3>
         <p class="text-center">Приложение предназначено для размещения Web-сайтов на локальном Web-сервере.</p>
         <p class="text-center">Зарегистрированные пользователи могут создавать и настраивать Web-сайты,
@@ -26,7 +27,7 @@
    </div>
 
     <div class="row mt-5">
-      <div class="col-md-4 mx-auto border border-primary rounded-lg p-4 bg-light">
+      <div class="col-md-4 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg">
         <h5 class="text-center">Войдите, что бы начать использовать.</h5>
 
         <form action="/user/login" method="post" class="p-2 mt-3">

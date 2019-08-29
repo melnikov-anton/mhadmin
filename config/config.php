@@ -11,6 +11,7 @@ define('DEFAULT_CONTROLLER', 'Home');
 //сообщения об ошибках
 define('MSG_404', 'Ресурс не найден!');
 define('MSG_DB_ERR', 'Ошибка базы данных!');
+define('MSG_USERINDB_ERR', 'Пользователь не найден!');
 define('MSG_LOG_ERR', 'Имя пользователя или пароль не правильные!');
 define('MSG_REG_ERR', 'Ошибка при регистрации пользователя!');
 

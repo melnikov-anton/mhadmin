@@ -1,4 +1,4 @@
-<div class="card bg-light text-dark">
+<div class="card bg-light text-dark shadow-lg">
     <div class="card-body">
       <h4 class="card-title">Информация о пользователе</h4>
       <div class="table-responsive">
@@ -18,7 +18,7 @@
             </tr>
             <tr>
               <td><h5>Имя пользователя:</h5></td>
-              <td><?php echo $user->getUsername(); ?></td>
+              <td><?php echo $user->getUsername();; ?></td>
             </tr>
             <tr>
               <td><h5>Тип пользователя:</h5></td>
@@ -35,20 +35,20 @@
     </div>
 </div>
 <br>
-<div class="card bg-light text-dark">
+<div class="card bg-light text-dark shadow-lg">
     <div class="card-body">
       <h4 class="card-title">Сайты пользователя</h4>
       <p></p>
     </div>
 </div>
 <br>
-<div class="card bg-light text-dark">
+<div class="card bg-light text-dark shadow-lg">
     <div class="card-body">
       <h4 class="card-title">Доступ к базе данных</h4>
     </div>
 </div>
 <br>
-<div class="card bg-light text-dark">
+<div class="card bg-light text-dark shadow-lg">
     <div class="card-body">
       <h4 class="card-title">Доступ к FTP-серверу</h4>
     </div>

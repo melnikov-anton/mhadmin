@@ -43,8 +43,10 @@ class User {
 
   public function logoutAction() {
     if(isset($_SESSION['username'])) {
-      //$user = new UserModel($_SESSION['username']);
       unset ($_SESSION['username']);
+      if(isset($_SESSION['id_user'])) {
+        unset ($_SESSION['id_user']);
+      }
       header('Location: /');
     } else {
       header('Location: /');
