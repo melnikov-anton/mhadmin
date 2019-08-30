@@ -13,7 +13,7 @@
     "admin" : {
       "Учетная запись" : "/user/account",
       "Пользователи" : "/user/account/users",
-      "Сайты" : "/user/account/sites",
+      "Виртуальные хосты" : "/user/account/sites",
       "Выход" : "/user/logout"
     }
   }

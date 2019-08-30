@@ -3,12 +3,13 @@
   if(isset($_SESSION['username'])) {
     $main_user = new UserModel($_SESSION['username']);
     $_SESSION['id_user'] = $main_user->getUserId();
-    $USERNAME = $main_user->getUsername();
     if($main_user->isAdmin()) {
       define('USER_ROLE', 'admin');
+      define('IS_ADMIN', true);
       $users_list = '';
     } else {
       define('USER_ROLE', 'user');
+      define('IS_ADMIN', false);
     }
     $user = $main_user;
 
@@ -21,12 +22,16 @@
         $users_list = $dbc->getUsersList();
         define ('PAGE_CONTENT', 'users_view.php');
         break;
-      case ($arg1 == 'users' && is_int((int)$arg2) && (int)$arg2 != 0):
+      case ($arg1 == 'users' && (int)$arg2 != 0):
         $dbc = Db::getConnection();
         $u_info = $dbc->getUserDataById($arg2);
 
         if($u_info) {
+          $user_sites = $dbc->getSitesDataByUserId($u_info['id_user']);
           define ('PAGE_CONTENT', 'user_data_view.php');
+          if($user_sites) {
+            define ('SITES_INFO_CARD', 'sites_info_card.php');
+          }
           $user = new UserModel($u_info['username']);
         } else {
           $msg = MSG_USERINDB_ERR;
@@ -35,8 +40,16 @@
         }
         break;
         case ($arg1 == 'sites' && $arg2 == ''):
-          $msg = 'Страница в разработке!';
-          define ('PAGE_CONTENT', 'create_site_view.php');
+          //$msg = 'Страница в разработке!';
+          $dbc = Db::getConnection();
+          $sites_list = $dbc->getSitesList();
+          define ('PAGE_CONTENT', 'sites_view.php');
+        break;
+        case ($arg1 == 'sites' && (int)$arg2 != 0):
+          //$msg = 'Страница в разработке!';
+          $dbc = Db::getConnection();
+          $s_info = $dbc->getSiteDataById($arg2);
+          define ('PAGE_CONTENT', 'site_data_view.php');
         break;
 
 
@@ -61,6 +74,7 @@
   <body>
 
   <div class="container-fluid">
+
     <div class="row">
       <div class="col-md-12 border border-primary rounded-lg">
         <h3 class="text-center p-3">Mini-Hosting Admin</h3>
@@ -68,32 +82,32 @@
     </div>
 
     <div class="row">
-      <div class="col-md-3 border border-primary rounded-lg bg-orange mh-100">
-        <div class"row">
-          <div class="card mt-2 border border-primary rounded-lg bg-success text-white shadow-lg">
-            <div class="card-body">
-              <h5>Имя пользователя: <span style="text-decoration: underline;font-size: 1.3em;"><b><?php echo $USERNAME; ?></b></span></h5>
-              <?php if($main_user->isAdmin()): ?>
-                <h5>Роль: Администратор</h5>
-              <?php endif; ?>
+
+        <div class="col-md-3 border border-primary rounded-lg bg-orange mh-100">
+          <div class="row">
+            <div class="card mt-2 mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
+              <div class="card-body">
+                <h5>Имя пользователя: <span style="text-decoration: underline;font-size: 1.3em;"><b><?php echo $_SESSION['username']; ?></b></span></h5>
+                <?php if($main_user->isAdmin()): ?>
+                  <h5>Роль: Администратор</h5>
+                <?php endif; ?>
+              </div>
+
             </div>
-
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-3">
+              <?php include 'side_menu.php';?>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12 mt-3">
-            <?php include 'side_menu.php';?>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-9 border border-primary rounded-lg p-4 bg-light mh-100">
-        <?php
-          if(defined('PAGE_CONTENT')) {
-            include PAGE_CONTENT;
-          }
-        ?>
-      </div>
+
+          <?php
+            if(defined('PAGE_CONTENT')) {
+              include PAGE_CONTENT;
+            }
+          ?>
 
     </div>
 

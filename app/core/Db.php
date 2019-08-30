@@ -1,7 +1,7 @@
 <?php
 
 class Db {
-  private static $_instances = array();
+  //private static $_instances = array();
   private $_pdo, $_query, $_result, $_numb = 0, $_error = false, $_lastInsertID = null, $_instHash;
 
   private function __construct($dbName = DB_NAME, $dbUser = DB_USER, $dbPass = DB_PASSWORD) {
@@ -14,7 +14,7 @@ class Db {
       die($e->getMessage());
     }
     $this->_instHash = md5($dbName . $dbUser);
-    self::$_instances[] = $this;
+    //self::$_instances[] = $this;
   }
 
 //------------------------------------------------------------
@@ -140,6 +140,36 @@ class Db {
     $sql = "INSERT IGNORE INTO sites ({$fieldStr}) VALUES ({$valStr})";
 
     return $this->sqlQuery($sql, $values);
+  }
+
+  public function getSitesList() {
+      $sql = "SELECT * FROM sites ORDER BY id_user, id_site";
+      $res = $this->sqlQuery($sql);
+      if($this->_numb == 0) {
+        return 0;
+      } else {
+        return $res;
+      }
+  }
+
+  public function getSiteDataById($id) {
+      $sql = "SELECT * FROM sites WHERE id_site= ?";
+      $res = $this->sqlQuery($sql, $id);
+      if($this->_numb == 0) {
+        return false;
+      } else {
+        return $res[0];
+      }
+  }
+
+  public function getSitesDataByUserId($id_user) {
+      $sql = "SELECT * FROM sites WHERE id_user= ?";
+      $res = $this->sqlQuery($sql, $id_user);
+      if($this->_numb == 0) {
+        return false;
+      } else {
+        return $res;
+      }
   }
 
   public function getUsersList() {

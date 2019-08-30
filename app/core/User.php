@@ -34,8 +34,8 @@ class User {
 
   public function accountAction($arg1='', $arg2='') {
     if(isset($_SESSION['username'])) {
-      require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'account_page.php');
 
+      require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'account_page.php');
     } else {
       header('Location: /');
     }
@@ -43,10 +43,11 @@ class User {
 
   public function logoutAction() {
     if(isset($_SESSION['username'])) {
-      unset ($_SESSION['username']);
-      if(isset($_SESSION['id_user'])) {
-        unset ($_SESSION['id_user']);
-      }
+      //unset ($_SESSION['username']);
+      //if(isset($_SESSION['id_user'])) {
+        //unset ($_SESSION['id_user']);
+      //}
+      session_unset();
       header('Location: /');
     } else {
       header('Location: /');
