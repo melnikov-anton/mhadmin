@@ -1,8 +1,8 @@
 <?php
 
 class UserModel {
-  private static $_users = array();
-  private $_uid, $_fname, $_lname, $_uname, $_email, $_rest, $_sites, $_isAdmin = false;
+
+  private $_uid, $_fname, $_lname, $_uname, $_email, $_rest, $_sites, $_perm = array(), $_isAdmin = false;
 
 
   public function __construct($username) {
@@ -19,8 +19,20 @@ class UserModel {
     if($res['usertype'] == 'admin') {
       $this->_isAdmin = true;
     }
-    self::$_users[] = $this;
+    $this->_sites = $db->getSitesDataByUserId($this->_uid);
+    $this->_perm['id'] = $this->_uid;
+    if($this->_sites) {
+      foreach ($this->_sites as $key => $site) {
+        $this->_perm['site'][] = $site['id_site'];
+      }
+    }
 
+  }
+
+  public static function getUser($id) {
+    $db = Db::getConnection();
+    $u_data = $db->getUserDataById($id);
+    return new UserModel($u_data['username']);
   }
 
   public static function registerUser($user_data = []) {
@@ -58,6 +70,20 @@ class UserModel {
     return $str;
   }
 
+  public function prepareSiteData($input_array = []) {
+    if(isset($input_array)) {
+      if($this->_sites) {
+        $i = count($this->_sites) + 1;
+      } else {$i = 1;}
+      $input_array['site_dir'] = $this->_uname . DS . 'site_' . $i;
+      $input_array['db_name'] = $this->_uname . '_site_' . $i . '_db';
+      $input_array['id_user'] = $this->_uid;
+      return $input_array;
+    } else return false;
+
+
+  }
+
   public function isAdmin() {
     return $this->_isAdmin;
   }
@@ -84,6 +110,14 @@ class UserModel {
 
   public function getEmail() {
     return $this->_email;
+  }
+
+  public function getSites() {
+    return $this->_sites;
+  }
+
+  public function getUserPermissions() {
+    return $this->_perm;
   }
 
 }

@@ -2,6 +2,7 @@
   <div class="card bg-light text-dark shadow-lg">
       <div class="card-body">
         <h4 class="card-title">Список виртуальных хостов:</h4>
+
         <div class="table-responsive">
           <table class="table table-striped table-bordered table-sm">
             <thead class="thead-dark">
@@ -36,6 +37,7 @@
             </tbody>
           </table>
         </div>
+        
       </div>
 
   </div>

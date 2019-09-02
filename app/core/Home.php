@@ -27,7 +27,11 @@ class Home {
   }
 
   public function successAction() {
-    Router::showSuccessPage();
+    if(isset($_SESSION['success_msg'])) {
+    Router::showSuccessPage($_SESSION['success_msg']);
+    } else {
+      Router::showSuccessPage();
+    }
   }
 
 

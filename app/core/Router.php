@@ -39,7 +39,7 @@ class Router {
     die();
   }
 
-  public static function showSuccessPage ($msg = MSG_REG_SUC) {
+  public static function showSuccessPage ($msg = 'Что-то завершилось успешно!') {
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'success_page.php');
     die();
   }

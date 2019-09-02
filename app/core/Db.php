@@ -1,7 +1,7 @@
 <?php
 
 class Db {
-  //private static $_instances = array();
+  private static $_instances = array();
   private $_pdo, $_query, $_result, $_numb = 0, $_error = false, $_lastInsertID = null, $_instHash;
 
   private function __construct($dbName = DB_NAME, $dbUser = DB_USER, $dbPass = DB_PASSWORD) {
@@ -14,7 +14,7 @@ class Db {
       die($e->getMessage());
     }
     $this->_instHash = md5($dbName . $dbUser);
-    //self::$_instances[] = $this;
+    self::$_instances[] = $this;
   }
 
 //------------------------------------------------------------
@@ -137,7 +137,7 @@ class Db {
     }
     $fieldStr = rtrim($fieldStr, ',');
     $valStr = rtrim($valStr, ',');
-    $sql = "INSERT IGNORE INTO sites ({$fieldStr}) VALUES ({$valStr})";
+    $sql = "INSERT INTO sites ({$fieldStr}) VALUES ({$valStr})";
 
     return $this->sqlQuery($sql, $values);
   }

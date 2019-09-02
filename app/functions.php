@@ -62,3 +62,13 @@ function sanitize_log_array($log_array = []) {
   $log = filter_var_array($log_array, $args, false);
   return $log;
 }
+
+//очистка массива с данными о сайте
+function sanitize_site_array($site_array = []) {
+  $args = [
+    'title' => FILTER_SANITIZE_STRING,
+    'description' => FILTER_SANITIZE_STRING
+  ];
+  $site = filter_var_array($site_array, $args, false);
+  return $site;
+}
