@@ -44,7 +44,7 @@
           <div>
             <a href="/user/account/users/createbd/#" class="btn btn-outline-primary btn-block mt-4">Создать БД</a>
             <a href="/user/account/users/changesite/#" class="btn btn-outline-danger btn-block mt-4">Изменить сайт</a>
-
+            <a href="/user/account/users/deletesite/#" class="btn btn-outline-danger btn-block mt-4">Удалить сайт</a>
           </div>
         </div>
       </div>

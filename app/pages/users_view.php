@@ -1,8 +1,8 @@
-<div class="col-md-9 border border-primary rounded-lg p-4 bg-light mh-100">
+<div class="col-md-9 border border-primary rounded-lg p-4 bg-light">
   <div class="card bg-light text-dark shadow-lg">
       <div class="card-body">
         <h4 class="card-title">Список пользователей:</h4>
-        <div class="table-responsive">
+        <div class="table-responsive-md">
           <table class="table table-striped table-bordered table-sm">
             <thead class="thead-dark">
               <tr>

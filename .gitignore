@@ -1,2 +1,3 @@
 /config/mhadmin.passwd
 /phpmyadmin/*
+/app/temp/*

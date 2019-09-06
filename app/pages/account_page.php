@@ -104,15 +104,15 @@
 
   <body>
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="height: 100%;">
 
-    <div class="row">
+    <div class="row" style="min-height: 10%;">
       <div class="col-md-12 border border-primary rounded-lg">
         <h3 class="text-center p-3">Mini-Hosting Admin</h3>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="min-height: 90%;">
 
         <div class="col-md-3 border border-primary rounded-lg bg-orange mh-100">
           <div class="row">

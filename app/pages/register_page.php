@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--изменить ссылку на файл стилей-->
-    <link rel="stylesheet" type="text/css" href="../css/mhadmin.css">
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap_4.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/mhadmin.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap_4.3.1.min.css">
 
   </head>
 
@@ -51,7 +51,7 @@
           </div>
 
             <button type="submit" class="btn btn-primary btn-block mt-5">Регистрация</button>
-
+            <a href="/" class="btn btn-link float-links mt-4">Назад</a>
         </form>
       </div>
     </div>
