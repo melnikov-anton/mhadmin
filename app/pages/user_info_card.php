@@ -37,9 +37,8 @@
         </div>
         <div class="col-md-3">
           <div>
-            <a href="/user/account/users/createsite/<?php echo $user->getUserId(); ?>" class="btn btn-outline-primary btn-block mt-4">Создать сайт</a>
-            <a href="/user/account/users/changeprofil/<?php echo $user->getUserId(); ?>" class="btn btn-outline-danger btn-block mt-4">Изменить профиль</a>
-            <a href="/user/account/users/changepassword/<?php echo $user->getUserId(); ?>" class="btn btn-outline-danger btn-block mt-4">Изменить пароль</a>
+            <a href="/user/account/createsite/<?php echo $user->getUserId(); ?>" class="btn btn-outline-primary btn-block mt-4">Создать сайт</a>
+            <a href="/user/account/changeprofil/<?php echo $user->getUserId(); ?>" class="btn btn-outline-danger btn-block mt-4">Изменить профиль</a>
 
           </div>
         </div>

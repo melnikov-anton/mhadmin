@@ -1,5 +1,5 @@
 <div class="col-md-9 border border-primary rounded-lg p-4 bg-light mh-100">
-  <?php include 'user_info_card.php'; ?>
+  <?php include PAGES_DIR . DS . 'user_info_card.php'; ?>
   <br>
     <?php if(defined('SITES_INFO_CARD')) {
       include SITES_INFO_CARD;

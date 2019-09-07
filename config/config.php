@@ -7,6 +7,8 @@ define('DB_PASSWORD', 'mhadmin');
 define('DB_HOST', '127.0.0.1');
 //-------------------------------
 define('APACHE_SITES_ENABLED_DIR', '/etc/apache2/sites-enabled');
+define('VHOST_TEMPLATE_FILE', 'vhost_template.conf');
+define('ADMIN_EMAIL', 'admin@mhadmin.local');
 //-------------------------------
 define('DEFAULT_CONTROLLER', 'Home');
 

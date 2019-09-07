@@ -76,6 +76,7 @@ class UserModel {
         $i = count($this->_sites) + 1;
       } else {$i = 1;}
       $input_array['site_dir'] = $this->_uname . DS . 'site_' . $i;
+      $input_array['site_name'] = $this->_uname . '-site-' . $i;
       $input_array['db_name'] = $this->_uname . '_site_' . $i . '_db';
       $input_array['id_user'] = $this->_uid;
       return $input_array;

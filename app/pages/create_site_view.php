@@ -1,6 +1,6 @@
 <?php
   $db = Db::getConnection();
-  $us = $db->getUserDataById($arg3);
+  $us = $db->getUserDataById($argv1);
 ?>
 
 <div class="col-md-9 border border-primary rounded-lg p-4 bg-light mh-100">
@@ -8,9 +8,9 @@
       <div class="card-body">
         <h4 class="card-title">Создание сайта</h4>
         <div class="row">
-          <div class="col-md-6 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg">
+          <div class="col-md-6 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg mb-5">
               <h5 class="text-center">Сайт для пользователя <b class="text-primary"><?php echo $us['username']; ?></b></h5>
-              <form action="/user/createsite/<?php echo $arg3 ?>" method="post">
+              <form action="/user/createsite/<?php echo $argv1 ?>" method="post">
                 <label for="tit">*Имя сайта</label>
                 </br>
                 <input type="text" class="form-control" id="tit" name="title" required>

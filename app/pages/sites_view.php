@@ -8,10 +8,11 @@
             <thead class="thead-dark">
               <tr>
                 <th style="width: 5%;">ID</th>
-                <th style="width: 35%;">Название</th>
+                <th style="width: 30%;">Название</th>
                 <th style="width: 10%;">Владелец</th>
-                <th style="width: 15%;">Имя БД</th>
-                <th style="width: 20%;">Директория</th>
+                <th style="width: 13%;">Псевдоним</th>
+                <th style="width: 12%;">Имя БД</th>
+                <th style="width: 15%;">Директория</th>
                 <th style="width: 10%;">Действие</th>
               </tr>
             </thead>
@@ -28,6 +29,7 @@
                     ?>
                   </a>
                 </td>
+                <td><?php echo $site['site_name']; ?></td>
                 <td><?php echo $site['db_name']; ?></td>
                 <td><?php echo $site['site_dir']; ?></td>
                 <td><a href="/user/account/sites/<?php echo $site['id_site']; ?>" class="btn btn-outline-info btn-sm ml-2">Просмотр</a>
@@ -37,7 +39,7 @@
             </tbody>
           </table>
         </div>
-        
+
       </div>
 
   </div>

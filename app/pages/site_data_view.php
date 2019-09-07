@@ -26,6 +26,12 @@
                         </a>
                       </td>
                     </tr>
+
+                    <tr>
+                      <td><h5>Псевдоним сайта:</h5></td>
+                      <td><?php echo $s_info['site_name']; ?></td>
+                    </tr>
+
                     <tr>
                       <td><h5>Имя БД:</h5></td>
                       <td><?php echo $s_info['db_name']; ?></td>
@@ -42,9 +48,9 @@
 
         <div class="col-md-3">
           <div>
-            <a href="/user/account/users/createbd/#" class="btn btn-outline-primary btn-block mt-4">Создать БД</a>
-            <a href="/user/account/users/changesite/#" class="btn btn-outline-danger btn-block mt-4">Изменить сайт</a>
-            <a href="/user/account/users/deletesite/#" class="btn btn-outline-danger btn-block mt-4">Удалить сайт</a>
+            <a href="/user/account/createdb/<?php echo $s_info['id_site']; ?>/<?php echo $s_info['id_user']; ?>" class="btn btn-outline-primary btn-block mt-4">Создать БД</a>
+            <a href="/user/account/changesite/<?php echo $s_info['id_site']; ?>" class="btn btn-outline-danger btn-block mt-4">Изменить сайт</a>
+            <a href="/user/account/deletesite/<?php echo $s_info['id_site']; ?>" class="btn btn-outline-danger btn-block mt-4">Удалить сайт</a>
           </div>
         </div>
       </div>

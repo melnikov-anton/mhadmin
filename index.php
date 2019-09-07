@@ -6,6 +6,7 @@ ini_set('display_errors', '1');
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__));
 define('WORK_ROOT', dirname(__FILE__, 2));
+define('PAGES_DIR', ROOT . DS . 'app' . DS . 'pages');
 
 require_once(ROOT . DS . 'app' . DS . 'functions.php');
 require_once(ROOT . DS . 'config' . DS . 'config.php');
