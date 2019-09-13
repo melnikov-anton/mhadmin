@@ -12,7 +12,7 @@ class View {
     define ('PAGE_CONTENT', PAGES_DIR . DS . 'user_data_view.php');
 
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'account_page.php');
-    
+
   }
 
 
@@ -111,11 +111,24 @@ class View {
 
 
   public function changeprofilView($argv1 = '', $argv2 = '') {
-
-    define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_profil_view.php');
-
-    require_once(PAGES_DIR . DS . 'account_page.php');
+    if((int)$argv1 !== 0) {
+      $main_user = new UserModel($_SESSION['username']);
+      $perm = $main_user->getUserPermissions();
+      if((defined('IS_ADMIN') && constant('IS_ADMIN') == 'admin') || $argv1 == $perm['id']) {
+        $dbc = Db::getConnection();
+        $u_info = $dbc->getUserDataById($argv1);
+        $user = new UserModel($u_info['username']);
+        define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_profil_view.php');
+      } else {
+          $msg = 'Нет доступа!';
+          define ('PAGE_CONTENT', PAGES_DIR . DS . 'error_page_view.php');
+        }
+        require_once(PAGES_DIR . DS . 'account_page.php');
+    } else {
+      header('Location: /user/account');
+    }
   }
+
 
   public function createdbView($argv1 = '', $argv2 = '') {
 
@@ -125,6 +138,7 @@ class View {
 
   }
 
+
   public function changesiteView($argv1 = '', $argv2 = '') {
 
     define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_site_view.php');
@@ -132,6 +146,7 @@ class View {
     require_once(PAGES_DIR . DS . 'account_page.php');
 
   }
+
 
   public function deletesiteView($argv1 = '', $argv2 = '') {
 

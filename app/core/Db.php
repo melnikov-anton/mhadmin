@@ -192,4 +192,16 @@ class Db {
       }
   }
 
+  public function changeUserData($params = []) {
+    $sql = "UPDATE users SET email= ?, rest= ? WHERE id_user= ?";
+    $res = $this->sqlQuery($sql, $params);
+    return $res;
+  }
+
+  public function changeUserPassword($params = []) {
+    $sql = "UPDATE users SET password= ? WHERE id_user= ?";
+    $res = $this->sqlQuery($sql, $params);
+    return $res;
+  }
+
 }

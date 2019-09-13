@@ -8,7 +8,7 @@
       <div class="card-body">
         <h4 class="card-title">Создание сайта</h4>
         <div class="row">
-          <div class="col-md-6 mx-auto border border-primary rounded-lg p-4 bg-light shadow-lg mb-5">
+          <div class="col-md-6 mx-auto p-4 bg-light mb-5">
               <h5 class="text-center">Сайт для пользователя <b class="text-primary"><?php echo $us['username']; ?></b></h5>
               <form action="/user/createsite/<?php echo $argv1 ?>" method="post">
                 <label for="tit">*Имя сайта</label>
@@ -19,7 +19,7 @@
                 <label for="desc">Краткое описание</label>
                 </br>
                 <textarea name="description" id="desc" class="form-control"
-                    maxlength="250"></textarea>
+                    maxlength="250" style="height: 10em"></textarea>
                 </br>
                 </br>
                 <input type="submit" class="btn btn-primary btn-block" value="Создать сайт">

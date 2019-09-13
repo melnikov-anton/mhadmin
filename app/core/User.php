@@ -9,6 +9,8 @@ class User {
       $db = Db::getConnection();
       $res = $db->checkUser($log['username'], $log['password']);
       if($res) {
+        $user = new UserModel($log['username']);
+        $_SESSION['admin'] = $user->isAdmin();
         $_SESSION['username'] = $log['username'];
 
         header('Location: /user/account');
@@ -100,6 +102,52 @@ class User {
     }
   }
 
+  public function changeprofilAction($u_id) {
+    if($_SERVER['REQUEST_METHOD']=='POST') {
+      $dbc = Db::getConnection();
+      $change_data = sanitize_reg_array($_POST);
+      if(($u_id == $_SESSION['id_user']) || $_SESSION['admin']) {
+        $check = $dbc->checkUser($_SESSION['username'], $change_data['password']);
+      } else {
+        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
+        header('Location: /home/wrong');
+      }
+      if($check) {
+        $res = $dbc->changeUserData([$change_data['email'], $change_data['rest'], $u_id]);
+        if($res) {
+          $_SESSION['success_msg'] = MSG_CHANGE_SUC;
+          header('Location: /home/success');
+        } else {
+          $_SESSION['wrong_msg'] = MSG_DB_ERR;
+          header('Location: /home/wrong');
+          }
+      }
+    }
+  }
+
+  public function changepasswordAction($u_id) {
+    if($_SERVER['REQUEST_METHOD']=='POST') {
+      $dbc = Db::getConnection();
+      if(($u_id == $_SESSION['id_user']) || $_SESSION['admin']) {
+        $check = $dbc->checkUser($_SESSION['username'], $_POST['password']);
+      } else {
+        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
+        header('Location: /home/wrong');
+      }
+      if($check) {
+        $new_passw = password_hash($_POST['new_pass'], PASSWORD_BCRYPT);
+        $res = $dbc->changeUserPassword([$new_passw, $u_id]);
+        if($res) {
+          $_SESSION['success_msg'] = MSG_PASSCHANGE_SUC;
+          header('Location: /home/success');
+        } else {
+          $_SESSION['wrong_msg'] = MSG_DB_ERR;
+          header('Location: /home/wrong');
+          }
+        }
+    }
+  }
+
 
   private function createVirtualHost($sd = []) {
     $site_dir = $sd['site_dir'];
@@ -137,6 +185,7 @@ class User {
       symlink($site_conf_fn, $site_conf_link);
     }
   }
+
 
 
 }
