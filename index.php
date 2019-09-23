@@ -6,6 +6,8 @@ ini_set('display_errors', '1');
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__));
 define('WORK_ROOT', dirname(__FILE__, 2));
+define('VHOSTS_DIR', WORK_ROOT . DS . 'vhosts');
+define('ARCHIVE_DIR', WORK_ROOT . DS . 'archive');
 define('PAGES_DIR', ROOT . DS . 'app' . DS . 'pages');
 
 require_once(ROOT . DS . 'app' . DS . 'functions.php');
@@ -32,7 +34,3 @@ if(isset($_SERVER['PATH_INFO'])) {
 }
 
 Router::route($url);
-
-//echo password_hash("antmel01", PASSWORD_BCRYPT);
-
-//echo password_hash("123456", PASSWORD_BCRYPT);

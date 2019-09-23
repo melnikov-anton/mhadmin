@@ -39,6 +39,9 @@
           <div>
             <a href="/user/account/createsite/<?php echo $user->getUserId(); ?>" class="btn btn-outline-primary btn-block mt-4">Создать сайт</a>
             <a href="/user/account/changeprofil/<?php echo $user->getUserId(); ?>" class="btn btn-outline-danger btn-block mt-4">Изменить профиль</a>
+            <?php if($_SESSION['admin'] && !$user->isAdmin()): ?>
+              <a href="/user/account/changetype/<?php echo $user->getUserId(); ?>" class="btn btn-outline-danger btn-block mt-4">Назначить администратором</a>
+            <?php endif; ?>
 
           </div>
         </div>

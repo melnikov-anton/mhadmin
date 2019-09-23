@@ -25,6 +25,8 @@ class UserModel {
       foreach ($this->_sites as $key => $site) {
         $this->_perm['site'][] = $site['id_site'];
       }
+    } else {
+      $this->_perm['site'][0] = '0';
     }
 
   }

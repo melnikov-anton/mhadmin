@@ -16,7 +16,7 @@
   <div class="container-fluid" style="height: 100%;">
 
     <div class="row" style="min-height: 10%;">
-      <div class="col-md-12 border border-primary rounded-lg">
+      <div class="col-md-12 border border-primary rounded-lg bg-lightblue">
         <h3 class="text-center p-3">Mini-Hosting Admin</h3>
       </div>
     </div>

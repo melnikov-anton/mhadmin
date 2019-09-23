@@ -204,4 +204,17 @@ class Db {
     return $res;
   }
 
+  public function changeSiteData($params = []) {
+    $sql = "UPDATE sites SET title= ?, description= ? WHERE id_site= ?";
+    $res = $this->sqlQuery($sql, $params);
+    return $res;
+  }
+
+  public function deleteSiteById($site_id) {
+    $sql = "DELETE FROM sites WHERE id_site= ?";
+    $res = $this->sqlQuery($sql, $site_id);
+    return $res;
+
+  }
+
 }

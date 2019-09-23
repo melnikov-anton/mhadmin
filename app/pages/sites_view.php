@@ -17,6 +17,7 @@
               </tr>
             </thead>
             <tbody>
+            <?php if($sites_list): ?>
             <?php foreach ($sites_list as $key => $site): ?>
               <tr>
                 <td><?php echo $site['id_site']; ?></td>
@@ -36,6 +37,7 @@
                 </td>
               </tr>
             <?php endforeach; ?>
+            <?php endif; ?>
             </tbody>
           </table>
         </div>

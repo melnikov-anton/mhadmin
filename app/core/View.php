@@ -138,21 +138,52 @@ class View {
 
   }
 
+  public function changetypeView($argv1 = '', $argv2 = '') {
 
-  public function changesiteView($argv1 = '', $argv2 = '') {
-
-    define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_site_view.php');
+    define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_type_view.php');
 
     require_once(PAGES_DIR . DS . 'account_page.php');
 
   }
 
 
+  public function changesiteView($argv1 = '', $argv2 = '') {
+    if((int)$argv1 !== 0) {
+      $main_user = new UserModel($_SESSION['username']);
+      $perm = $main_user->getUserPermissions();
+      if((defined('IS_ADMIN') && constant('IS_ADMIN') == 'admin') || in_array($argv1, $perm['site'])) {
+        $dbc = Db::getConnection();
+        $s_info = $dbc->getSiteDataById($argv1);
+
+        define ('PAGE_CONTENT', PAGES_DIR . DS . 'change_site_view.php');
+      } else {
+          $msg = 'Нет доступа!';
+          define ('PAGE_CONTENT', PAGES_DIR . DS . 'error_page_view.php');
+        }
+        require_once(PAGES_DIR . DS . 'account_page.php');
+    } else {
+      header('Location: /user/account');
+    }
+
+  }
+
+
   public function deletesiteView($argv1 = '', $argv2 = '') {
-
-    define ('PAGE_CONTENT', PAGES_DIR . DS . 'delete_site_view.php');
-
-    require_once(PAGES_DIR . DS . 'account_page.php');
+    if((int)$argv1 !== 0) {
+      $main_user = new UserModel($_SESSION['username']);
+      $perm = $main_user->getUserPermissions();
+      if((defined('IS_ADMIN') && constant('IS_ADMIN') == 'admin') || in_array($argv1, $perm['site'])) {
+        $dbc = Db::getConnection();
+        $sd = $dbc->getSiteDataById($argv1);
+        define ('PAGE_CONTENT', PAGES_DIR . DS . 'delete_site_view.php');
+      } else {
+          $msg = 'Нет доступа!';
+          define ('PAGE_CONTENT', PAGES_DIR . DS . 'error_page_view.php');
+        }
+        require_once(PAGES_DIR . DS . 'account_page.php');
+      } else {
+        header('Location: /user/account');
+      }
 
 
   }
