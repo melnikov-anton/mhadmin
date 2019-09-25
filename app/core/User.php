@@ -17,6 +17,7 @@ class User {
       } else {
           $_SESSION['wrong_msg'] = MSG_LOG_ERR;
           header('Location: /home/wrong');
+          exit();
       }
     }
 
@@ -25,13 +26,20 @@ class User {
   public function registerAction() {
 
     if($_SERVER['REQUEST_METHOD']=='POST') {
+      if($_POST['password'] != $_POST['rep_pass']) {
+        $_SESSION['wrong_msg'] = MSG_PASSNOTEVEN_ERR;
+        header('Location: /home/wrong');
+        exit();
+      }
       $reg = sanitize_reg_array($_POST);
       if(UserModel::registerUser($reg)) {
         $_SESSION['success_msg'] = MSG_REG_SUC;
         header('Location: /home/success');
+        exit();
       } else {
         $_SESSION['wrong_msg'] = MSG_REG_ERR;
         header('Location: /home/wrong');
+        exit();
       }
     }
   }
@@ -93,9 +101,11 @@ class User {
         exec('service apache2 reload');
         $_SESSION['success_msg'] = MSG_SITEREG_SUC;
         header('Location: /home/success');
+        exit();
       } else {
         $_SESSION['wrong_msg'] = MSG_SITEREG_ERR;
         header('Location: /home/wrong');
+        exit();
       }
     }
   }
@@ -135,10 +145,12 @@ class User {
         } else {
           $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
           header('Location: /home/wrong');
+          exit();
         }
       } else {
         $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
         header('Location: /home/wrong');
+        exit();
       }
     }
   }
@@ -155,31 +167,42 @@ class User {
       } else {
         $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
         header('Location: /home/wrong');
+        exit();
       }
       if($check) {
         $res = $dbc->changeUserData([$change_data['email'], $change_data['rest'], $u_id]);
         if($res) {
           $_SESSION['success_msg'] = MSG_CHANGE_SUC;
           header('Location: /home/success');
+          exit();
         } else {
           $_SESSION['wrong_msg'] = MSG_DB_ERR;
           header('Location: /home/wrong');
+          exit();
           }
       } else {
         $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
         header('Location: /home/wrong');
+        exit();
       }
     }
   }
 
+
   public function changepasswordAction($u_id) {
     if($_SERVER['REQUEST_METHOD']=='POST') {
+      if($_POST['new_pass'] != $_POST['rep_new_pass']) {
+        $_SESSION['wrong_msg'] = MSG_PASSNOTEVEN_ERR;
+        header('Location: /home/wrong');
+        exit();
+      }
       $dbc = Db::getConnection();
       if(($u_id == $_SESSION['id_user']) || $_SESSION['admin']) {
         $check = $dbc->checkUser($_SESSION['username'], $_POST['password']);
       } else {
         $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
         header('Location: /home/wrong');
+        exit();
       }
       if($check) {
         $new_passw = password_hash($_POST['new_pass'], PASSWORD_BCRYPT);
@@ -187,10 +210,16 @@ class User {
         if($res) {
           $_SESSION['success_msg'] = MSG_PASSCHANGE_SUC;
           header('Location: /home/success');
+          exit();
         } else {
           $_SESSION['wrong_msg'] = MSG_DB_ERR;
           header('Location: /home/wrong');
+          exit();
           }
+        } else {
+          $_SESSION['wrong_msg'] = MSG_LOG_ERR;
+          header('Location: /home/wrong');
+          exit();
         }
     }
   }
@@ -205,25 +234,57 @@ class User {
       } else {
         $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
         header('Location: /home/wrong');
+        exit();
       }
       if($check) {
         $res = $dbc->changeSiteData([$change_data['title'], $change_data['description'], $s_id]);
         if($res) {
           $_SESSION['success_msg'] = MSG_CHANGESITE_SUC;
           header('Location: /home/success');
+          exit();
         } else {
           $_SESSION['wrong_msg'] = MSG_DB_ERR;
           header('Location: /home/wrong');
+          exit();
           }
       } else {
         $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
         header('Location: /home/wrong');
+        exit();
+      }
+    }
+  }
+
+  public function makeadminAction($user_id) {
+    if($_SERVER['REQUEST_METHOD']=='POST') {
+      $db = Db::getConnection();
+      if($_SESSION['admin']) {
+        $check = $db->checkUser($_SESSION['username'], $_POST['password']);
+      } else {
+        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
+        header('Location: /home/wrong');
+        exit();
+      }
+      if($check) {
+        $res = $db->makeAdmin($user_id);
+        if($res) {
+          $_SESSION['success_msg'] = MSG_CHANGETYPE_SUC;
+          header('Location: /home/success');
+          exit();
+        } else {
+          $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
+          header('Location: /home/wrong');
+          exit();
+        }
+      } else {
+        $_SESSION['wrong_msg'] = MSG_LOG_ERR;
+        header('Location: /home/wrong');
+        exit();
       }
 
     }
-
-
   }
+
 
   private function createVirtualHost($sd = []) {
     $site_dir = $sd['site_dir'];
@@ -262,6 +323,9 @@ class User {
     }
   }
 
+public function testAction() {
 
+
+}
 
 }

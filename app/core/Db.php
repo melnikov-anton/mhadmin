@@ -214,7 +214,12 @@ class Db {
     $sql = "DELETE FROM sites WHERE id_site= ?";
     $res = $this->sqlQuery($sql, $site_id);
     return $res;
+  }
 
+  public function makeAdmin($user_id) {
+    $sql = "UPDATE users SET usertype='admin' WHERE id_user= ?";
+    $res = $this->sqlQuery($sql, $user_id);
+    return $res;
   }
 
 }

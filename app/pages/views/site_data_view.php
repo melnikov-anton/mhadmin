@@ -1,4 +1,4 @@
-<div class="col-md-9 border border-primary rounded-lg p-4 bg-light mh-100">
+<div class="col-md-9 border border-primary p-4 bg-light mh-100">
   <div class="card bg-light text-dark shadow-lg">
       <div class="card-body">
         <h4 class="card-title">Информация о сайте</h4>

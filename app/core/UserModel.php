@@ -57,7 +57,7 @@ class UserModel {
 
     if($dbc->saveUserInDb($user_data)) {
       $_SESSION['username'] = $user_data['username'];
-      //print_data($us);
+      $_SESSION['admin'] = false;
       return true;
     } else {return false;}
 
