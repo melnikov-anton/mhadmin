@@ -34,3 +34,4 @@ define('MSG_PASSCHANGE_SUC', 'Пароль пользователя успешн
 define('MSG_CHANGESITE_SUC', 'Данные сайта успешно изменены!');
 define('MSG_DELETESITE_SUC', 'Данные сайта успешно удалены!');
 define('MSG_CHANGETYPE_SUC', 'Тип пользователя успешно изменен!');
+define('MSG_CREATEDB_SUC', 'База данных успешно создана!');

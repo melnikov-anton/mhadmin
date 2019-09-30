@@ -22,7 +22,7 @@
 
         <div class="row mt-5">
           <div class="col-md-4 mx-auto p-4">
-            <img src="/images/standup_cat.jpg" class="mx-auto d-block" alt="Error">
+            <img src="/images/standup_cat2.png" class="mx-auto d-block" alt="Error">
           </div>
         </div>
 
@@ -31,7 +31,7 @@
             <a href="/" class="btn btn-outline-primary btn-block mt-4">Домой</a>
           </div>
         </div>
-    
+
 
   </div>
 

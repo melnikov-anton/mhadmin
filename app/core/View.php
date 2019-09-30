@@ -88,7 +88,14 @@ class View {
           if((defined('IS_ADMIN') && constant('IS_ADMIN') == 'admin') || in_array($argv1, $perm['site'])) {
             $dbc = Db::getConnection();
             $s_info = $dbc->getSiteDataById($argv1);
-            define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/site_data_view.php');
+            if(!$s_info) {
+              $msg = 'Нет такого сайта!';
+              define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/error_page_view.php');
+
+            } else {
+              define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/site_data_view.php');
+            }
+
           } else {
               $msg = 'Нет доступа!';
               define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/error_page_view.php');
@@ -131,8 +138,25 @@ class View {
 
 
   public function createdbView($argv1 = '', $argv2 = '') {
+    if((int)$argv1 !== 0 && (int)$argv2 !== 0) {
+      $dbc = Db::getConnection();
+      $main_user = new UserModel($_SESSION['username']);
+      $perm = $main_user->getUserPermissions();
+      if($argv2 == $perm['id'] && in_array($argv1, $perm['site'])) {
+        $sd = $dbc->getSiteDataById($argv1);
+        $site_index = explode('-', $sd['site_name'])[2];
+        //print_data($site_index);
+        $db_name = $main_user->getUsername() . '_site_' . $site_index . '_db';
+        define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/create_db_view.php');
+      } else {
+        $msg = 'Только владелец сайта может создать базу данных!';
+        define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/error_page_view.php');
+      }
+    } else {
+      header('Location: /user/account');
+    }
 
-    define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/create_db_view.php');
+
 
     require_once(PAGES_DIR . DS . 'account_page.php');
 

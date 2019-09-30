@@ -285,6 +285,46 @@ class User {
     }
   }
 
+  public function createdbAction($s_id, $u_id) {
+    if($_SERVER['REQUEST_METHOD']=='POST') {
+      $db = Db::getConnection();
+      $main_user = new UserModel($_SESSION['username']);
+      $perm = $main_user->getUserPermissions();
+      $check = $db->checkUser($_SESSION['username'], $_POST['password']);
+      if($check) {
+          if($u_id == $perm['id'] && in_array($s_id, $perm['site'])) {
+            $sd = $db->getSiteDataById($s_id);
+            $site_index = explode('-', $sd['site_name'])[2];
+            $db_name = $main_user->getUsername() . '_site_' . $site_index . '_db';
+            $db_general = Db::getConnection('', DB_USER, DB_PASSWORD);
+
+            $res = $db_general->createSitesDb($db_name, $_SESSION['username'], $_POST['password'], $s_id);
+            if($res) {
+              $_SESSION['success_msg'] = MSG_CREATEDB_SUC;
+              header('Location: /home/success');
+              exit();
+            } else {
+              $_SESSION['wrong_msg'] = MSG_DB_ERR;
+              header('Location: /home/wrong');
+              exit();
+            }
+
+          } else {
+            $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
+            header('Location: /home/wrong');
+            exit();
+          }
+        } else {
+          $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
+          header('Location: /home/wrong');
+          exit();
+        }
+
+
+    }
+
+  }
+
 
   private function createVirtualHost($sd = []) {
     $site_dir = $sd['site_dir'];

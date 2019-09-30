@@ -4,7 +4,7 @@ class Db {
   private static $_instances = array();
   private $_pdo, $_query, $_result, $_numb = 0, $_error = false, $_lastInsertID = null, $_instHash;
 
-  private function __construct($dbName = DB_NAME, $dbUser = DB_USER, $dbPass = DB_PASSWORD) {
+  private function __construct($dbName = '', $dbUser = DB_USER, $dbPass = DB_PASSWORD) {
 
     try {
       $this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . $dbName, $dbUser, $dbPass);
@@ -220,6 +220,30 @@ class Db {
     $sql = "UPDATE users SET usertype='admin' WHERE id_user= ?";
     $res = $this->sqlQuery($sql, $user_id);
     return $res;
+  }
+
+  public function createSitesDb($db_name, $db_username, $db_pass, $s_id) {
+
+    $sql = "CREATE DATABASE IF NOT EXISTS {$db_name}";
+    $res = $this->sqlQuery($sql);
+    if($res) {
+      $sql = "CREATE USER IF NOT EXISTS {$db_username} IDENTIFIED BY '{$db_pass}'";
+      $res = $this->sqlQuery($sql);
+      if($res) {
+        $sql = "GRANT USAGE ON {$db_name}.* TO {$db_username}@'%'";
+        $res = $this->sqlQuery($sql);
+        $sql = "GRANT ALL privileges ON {$db_name}.* TO {$db_username}@'%'";
+        $res = $this->sqlQuery($sql);
+        $sql = "FLUSH PRIVILEGES";
+        $res = $this->sqlQuery($sql);
+        $sql = "USE " . DB_NAME;
+        $res = $this->sqlQuery($sql);
+        $sql = "UPDATE sites SET db_name= ? WHERE id_site= ?";
+        $res = $this->sqlQuery($sql, [$db_name, $s_id]);
+      }
+    }
+    return $res;
+
   }
 
 }

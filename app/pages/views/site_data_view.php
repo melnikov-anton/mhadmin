@@ -48,7 +48,9 @@
 
         <div class="col-md-3">
           <div>
-            <a href="/user/account/createdb/<?php echo $s_info['id_site']; ?>/<?php echo $s_info['id_user']; ?>" class="btn btn-outline-primary btn-block mt-4">Создать БД</a>
+            <?php if($s_info['db_name'] == ''): ?>
+              <a href="/user/account/createdb/<?php echo $s_info['id_site']; ?>/<?php echo $s_info['id_user']; ?>" class="btn btn-outline-primary btn-block mt-4">Создать БД</a>
+            <?php endif; ?>
             <a href="/user/account/changesite/<?php echo $s_info['id_site']; ?>" class="btn btn-outline-danger btn-block mt-4">Изменить сайт</a>
             <a href="/user/account/deletesite/<?php echo $s_info['id_site']; ?>" class="btn btn-outline-danger btn-block mt-4">Удалить сайт</a>
           </div>
