@@ -12,12 +12,10 @@ class User {
         $user = new UserModel($log['username']);
         $_SESSION['admin'] = $user->isAdmin();
         $_SESSION['username'] = $log['username'];
-
         header('Location: /user/account');
+        exit();
       } else {
-          $_SESSION['wrong_msg'] = MSG_LOG_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_LOG_ERR);
       }
     }
 
@@ -27,19 +25,18 @@ class User {
 
     if($_SERVER['REQUEST_METHOD']=='POST') {
       if($_POST['password'] != $_POST['rep_pass']) {
-        $_SESSION['wrong_msg'] = MSG_PASSNOTEVEN_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_PASSNOTEVEN_ERR);
       }
       $reg = sanitize_reg_array($_POST);
       if(UserModel::registerUser($reg)) {
-        $_SESSION['success_msg'] = MSG_REG_SUC;
-        header('Location: /home/success');
-        exit();
+        $res = $this->createFtpAccess($_SESSION['username'], $reg['password']);
+        if($res) {
+          Router::redirectToSuccess(MSG_REG_SUC);
+        } else {
+          Router::redirectToWrong(MSG_REG_ERR);
+        }
       } else {
-        $_SESSION['wrong_msg'] = MSG_REG_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_REG_ERR);
       }
     }
   }
@@ -76,10 +73,6 @@ class User {
 
   public function logoutAction() {
     if(isset($_SESSION['username'])) {
-      //unset ($_SESSION['username']);
-      //if(isset($_SESSION['id_user'])) {
-        //unset ($_SESSION['id_user']);
-      //}
       session_unset();
       header('Location: /');
     } else {
@@ -99,13 +92,9 @@ class User {
       if($db->saveSiteInDb($site_data)) {
         $this->createVirtualHost($site_data);
         exec('service apache2 reload');
-        $_SESSION['success_msg'] = MSG_SITEREG_SUC;
-        header('Location: /home/success');
-        exit();
+        Router::redirectToSuccess(MSG_SITEREG_SUC);
       } else {
-        $_SESSION['wrong_msg'] = MSG_SITEREG_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_SITEREG_ERR);
       }
     }
   }
@@ -114,6 +103,7 @@ class User {
     if($_SERVER['REQUEST_METHOD']=='POST') {
       $db = Db::getConnection();
       $sd = $db->getSiteDataById($site_id);
+      $dbname = $sd['db_name'];
       $main_user = new UserModel($_SESSION['username']);
       $perm = $main_user->getUserPermissions();
       $check = $db->checkUser($_SESSION['username'], $_POST['password']);
@@ -134,23 +124,20 @@ class User {
                 unlink($site_conf_fn);
               }
               $res = $db->deleteSiteById($site_id);
+              if($dbname) {
+                $db_general = Db::getConnection('', DB_USER, DB_PASSWORD);
+                $db_general->deleteSitesDb($dbname);
+              }
               if($res) {
-                $_SESSION['success_msg'] = MSG_DELETESITE_SUC;
-                header('Location: /home/success');
+                Router::redirectToSuccess(MSG_DELETESITE_SUC);
               }
             }
           }
-          //$_SESSION['wrong_msg'] = MSG_SITEDEL_ERR;
-          //header('Location: /home/wrong');
         } else {
-          $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_RESTR_ERR);
         }
       } else {
-        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_RESTR_ERR);
       }
     }
   }
@@ -165,25 +152,17 @@ class User {
       if(($u_id == $_SESSION['id_user']) || $_SESSION['admin']) {
         $check = $dbc->checkUser($_SESSION['username'], $change_data['password']);
       } else {
-        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToSuccess(MSG_RESTR_ERR);
       }
       if($check) {
         $res = $dbc->changeUserData([$change_data['email'], $change_data['rest'], $u_id]);
         if($res) {
-          $_SESSION['success_msg'] = MSG_CHANGE_SUC;
-          header('Location: /home/success');
-          exit();
+          Router::redirectToSuccess(MSG_CHANGE_SUC);
         } else {
-          $_SESSION['wrong_msg'] = MSG_DB_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_DB_ERR);
           }
       } else {
-        $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_USERINDB_ERR);
       }
     }
   }
@@ -192,34 +171,32 @@ class User {
   public function changepasswordAction($u_id) {
     if($_SERVER['REQUEST_METHOD']=='POST') {
       if($_POST['new_pass'] != $_POST['rep_new_pass']) {
-        $_SESSION['wrong_msg'] = MSG_PASSNOTEVEN_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_PASSNOTEVEN_ERR);
       }
       $dbc = Db::getConnection();
+      $ud = $dbc->getUserDataById($u_id);
       if(($u_id == $_SESSION['id_user']) || $_SESSION['admin']) {
         $check = $dbc->checkUser($_SESSION['username'], $_POST['password']);
       } else {
-        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_RESTR_ERR);
       }
       if($check) {
         $new_passw = password_hash($_POST['new_pass'], PASSWORD_BCRYPT);
         $res = $dbc->changeUserPassword([$new_passw, $u_id]);
-        if($res) {
-          $_SESSION['success_msg'] = MSG_PASSCHANGE_SUC;
-          header('Location: /home/success');
-          exit();
+        $db_general = Db::getConnection('', DB_USER, DB_PASSWORD);
+        if($this->userHasDbAccount($u_id)) {
+          $res2 = $db_general->changeUsersDbPassword($ud['username'], $_POST['new_pass']);
         } else {
-          $_SESSION['wrong_msg'] = MSG_DB_ERR;
-          header('Location: /home/wrong');
-          exit();
+          $res2 = true;
+        }
+        $res3 = $this->createFtpAccess($ud['username'], $_POST['new_pass']);
+        if($res && $res2 && $res3) {
+          Router::redirectToSuccess(MSG_PASSCHANGE_SUC);
+        } else {
+          Router::redirectToWrong(MSG_DB_ERR);
           }
         } else {
-          $_SESSION['wrong_msg'] = MSG_LOG_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_LOG_ERR);
         }
     }
   }
@@ -232,25 +209,17 @@ class User {
       if(($s_data['id_user'] == $_SESSION['id_user']) || $_SESSION['admin']) {
         $check = $dbc->checkUser($_SESSION['username'], $_POST['password']);
       } else {
-        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_RESTR_ERR);
       }
       if($check) {
         $res = $dbc->changeSiteData([$change_data['title'], $change_data['description'], $s_id]);
         if($res) {
-          $_SESSION['success_msg'] = MSG_CHANGESITE_SUC;
-          header('Location: /home/success');
-          exit();
+          Router::redirectToSuccess(MSG_CHANGESITE_SUC);
         } else {
-          $_SESSION['wrong_msg'] = MSG_DB_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_DB_ERR);
           }
       } else {
-        $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_USERINDB_ERR);
       }
     }
   }
@@ -261,25 +230,17 @@ class User {
       if($_SESSION['admin']) {
         $check = $db->checkUser($_SESSION['username'], $_POST['password']);
       } else {
-        $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_RESTR_ERR);
       }
       if($check) {
         $res = $db->makeAdmin($user_id);
         if($res) {
-          $_SESSION['success_msg'] = MSG_CHANGETYPE_SUC;
-          header('Location: /home/success');
-          exit();
+          Router::redirectToSuccess(MSG_CHANGETYPE_SUC);
         } else {
-          $_SESSION['wrong_msg'] = MSG_USERINDB_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_USERINDB_ERR);
         }
       } else {
-        $_SESSION['wrong_msg'] = MSG_LOG_ERR;
-        header('Location: /home/wrong');
-        exit();
+        Router::redirectToWrong(MSG_LOG_ERR);
       }
 
     }
@@ -300,30 +261,20 @@ class User {
 
             $res = $db_general->createSitesDb($db_name, $_SESSION['username'], $_POST['password'], $s_id);
             if($res) {
-              $_SESSION['success_msg'] = MSG_CREATEDB_SUC;
-              header('Location: /home/success');
-              exit();
+              Router::redirectToSuccess(MSG_CREATEDB_SUC);
             } else {
-              $_SESSION['wrong_msg'] = MSG_DB_ERR;
-              header('Location: /home/wrong');
-              exit();
+              Router::redirectToWrong(MSG_DB_ERR);
             }
 
           } else {
-            $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-            header('Location: /home/wrong');
-            exit();
+            Router::redirectToWrong(MSG_RESTR_ERR);
           }
         } else {
-          $_SESSION['wrong_msg'] = MSG_RESTR_ERR;
-          header('Location: /home/wrong');
-          exit();
+          Router::redirectToWrong(MSG_RESTR_ERR);
         }
-
+      }
 
     }
-
-  }
 
 
   private function createVirtualHost($sd = []) {
@@ -363,9 +314,50 @@ class User {
     }
   }
 
-public function testAction() {
-
+private function createFtpAccess($username, $user_pass) {
+  $userdir = VHOSTS_DIR . DS . $username;
+  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' ' . $username . ' ' . $user_pass . ' ' . $userdir;
+  exec($createftp_script_command, $output, $ret);
+  if($ret == 0) {
+    return true;
+  } else {
+    return false;
+  }
 
 }
+
+private function userHasDbAccount($user_id) {
+  $dbc = Db::getConnection();
+  $sd = $dbc->getSitesDataByUserId($user_id);
+  if($sd) {
+    foreach ($sd as $site) {
+      if($site['db_name']) {
+        return true;
+      }
+    }
+  } else {
+    return false;
+  }
+
+}
+
+public function testAction() {
+  $username = 'antmel04';
+  $user_pass = '123';
+  $userdir = VHOSTS_DIR . DS . $username;
+  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' ' . $username . ' ' . $user_pass . ' ' . $userdir;
+  print_data($createftp_script_command);
+  exec($createftp_script_command, $output, $ret);
+  print_data($output);
+  print_data($ret);
+
+}
+
+public function test2Action() {
+  exec('ftpasswd --passwd --file=/var/www/mhadmin/config/mhadmin.passwd --name=antmel04 --delete-user', $output, $ret);
+  print_data($output);
+  print_data($ret);
+}
+
 
 }

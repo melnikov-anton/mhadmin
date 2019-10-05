@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/mhadmin.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/mhadmin.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap_4.3.1.min.css">
 
@@ -27,19 +28,21 @@
         <div class="col-md-3 border border-primary bg-orange mh-100">
           <div class="row">
               <div class="card mt-2 mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
-              <div class="card-body">
-                  <h5>Имя пользователя: <span style="text-decoration: underline;font-size: 1.3em;"><b><?php echo $_SESSION['username']; ?></b></span></h5>
-                  <?php if(constant('IS_ADMIN') == 'admin'): ?>
-                    <h5>Роль: Администратор</h5>
-                  <?php endif; ?>
+                <div class="card-body">
+                    <h5>Имя пользователя: <span style="text-decoration: underline;font-size: 1.3em;"><b><?php echo $_SESSION['username']; ?></b></span></h5>
+                    <?php if(constant('IS_ADMIN') == 'admin'): ?>
+                      <h5>Роль: Администратор</h5>
+                    <?php endif; ?>
+                </div>
               </div>
-
-            </div>
           </div>
           <div class="row">
               <div class="col-md-12 mt-3">
                   <?php include PAGES_DIR . DS . 'side_menu.php';?>
               </div>
+          </div>
+          <div class="row mt-5">
+            <?php include 'cards/useful_links_card.php'; ?>
           </div>
         </div>
 
@@ -50,9 +53,20 @@
             }
           ?>
 
+
     </div>
 
   </div>
 
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
   </body>
 </html>

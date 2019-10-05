@@ -8,7 +8,18 @@ class View {
     $user_sites = $user->getSites();
     if($user_sites) {
       define ('SITES_INFO_CARD', PAGES_DIR . DS . 'cards/sites_info_card.php');
+      $db_names = [];
+      foreach ($user_sites as $s_data) {
+        if($s_data['db_name'] != '') {
+          $db_names[] = $s_data['db_name'];
+        }
+      }
+      if($db_names) {
+        define ('DB_INFO_CARD', PAGES_DIR . DS . 'cards/db_info_card.php');
+      }
+
     }
+    define ('FTP_INFO_CARD', PAGES_DIR . DS . 'cards/ftp_info_card.php');
     define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/user_data_view.php');
 
     require_once(PAGES_DIR . DS . 'account_page.php');
@@ -39,9 +50,19 @@ class View {
 
             if($u_info) {
               $user_sites = $dbc->getSitesDataByUserId($u_info['id_user']);
+              define ('FTP_INFO_CARD', PAGES_DIR . DS . 'cards/ftp_info_card.php');
               define ('PAGE_CONTENT', PAGES_DIR . DS . 'views/user_data_view.php');
               if($user_sites) {
                 define ('SITES_INFO_CARD', PAGES_DIR . DS . 'cards/sites_info_card.php');
+                $db_names = [];
+                foreach ($user_sites as $s_data) {
+                  if($s_data['db_name'] != '') {
+                    $db_names[] = $s_data['db_name'];
+                  }
+                }
+                if($db_names) {
+                  define ('DB_INFO_CARD', PAGES_DIR . DS . 'cards/db_info_card.php');
+                }
               }
               $user = new UserModel($u_info['username']);
             } else {

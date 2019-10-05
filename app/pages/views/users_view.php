@@ -2,6 +2,9 @@
   <div class="card bg-light text-dark shadow-lg">
       <div class="card-body">
         <h4 class="card-title">Список пользователей:</h4>
+        <div class="mt-3 mb-3">
+          <input class="form-control" id="myInput" type="text" placeholder="Поиск..">
+        </div>
         <div class="table-responsive-md">
           <table class="table table-striped table-bordered table-sm">
             <thead class="thead-dark">
@@ -15,7 +18,7 @@
                 <th style="width: 9%;">Действие</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
             <?php foreach ($users_list as $key => $user): ?>
               <tr <?php if($user['usertype'] == 'admin') {echo 'class="table-success"';} ?>>
                 <td><?php echo $user['id_user']; ?></td>

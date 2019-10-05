@@ -3,6 +3,7 @@
 //скрипты
 define('ARCHIVE_SITE_SCRIPT', 'archive_site_dir.sh');
 define('DELETE_SITE_SCRIPT', 'delete_site_dir.sh');
+define('CREATE_FTP_SCRIPT', 'create_ftp_access.sh');
 
 // настройки базы данных
 define('DB_NAME', 'mhadmin_db');

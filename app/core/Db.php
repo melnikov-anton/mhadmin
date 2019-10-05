@@ -243,7 +243,18 @@ class Db {
       }
     }
     return $res;
+  }
 
+  public function deleteSitesDb($db_name) {
+    $sql = "DROP DATABASE IF EXISTS {$db_name}";
+    $res = $this->sqlQuery($sql);
+    return $res;
+  }
+
+  public function changeUsersDbPassword($db_username, $db_password) {
+    $sql = "SET PASSWORD FOR {$db_username}@'%' = PASSWORD('{$db_password}')";
+    $res = $this->sqlQuery($sql);
+    return $res;
   }
 
 }

@@ -36,12 +36,24 @@ class Router {
       header("HTTP/1.1 404 Not Found");
     }
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'error_page.php');
-    die();
+    exit();
   }
 
   public static function showSuccessPage ($msg = 'Что-то завершилось успешно!') {
     require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'success_page.php');
-    die();
+    exit();
+  }
+
+  public static function redirectToSuccess($message = 'Что-то завершилось успешно!') {
+    $_SESSION['success_msg'] = $message;
+    header('Location: /home/success');
+    exit();
+  }
+
+  public static function redirectToWrong($message = 'Что-то завершилось неудачно!') {
+    $_SESSION['wrong_msg'] = $message;
+    header('Location: /home/wrong');
+    exit();
   }
 
 
