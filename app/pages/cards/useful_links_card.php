@@ -9,7 +9,8 @@
         <a href="https://ru.wikipedia.org/wiki/CSS" target="_blank" class="text-body">- Таблицы стилей CSS</a></br>
         <a href="https://ru.wikipedia.org/wiki/JavaScript" target="_blank" class="text-body">- Язык JavaScript</a></br>
         <a href="https://ru.wikipedia.org/wiki/PHP" target="_blank" class="text-body">- Скриптовый язык PHP</a></br>
-        <a href="https://ru.wikipedia.org/wiki/Python" target="_blank" class="text-body">- Язык Python</a>
+        <a href="https://ru.wikipedia.org/wiki/Python" target="_blank" class="text-body">- Язык Python</a></br>
+        <a href="https://ru.wikipedia.org/wiki/WSGI" target="_blank" class="text-body">- Протокол WSGI</a>
       </div>
   </div>
 </div>

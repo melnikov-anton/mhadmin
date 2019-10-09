@@ -52,7 +52,7 @@ class Db {
       }
 
       if($stat->execute()) {
-        if(preg_match("/select/i", $sql)) {
+        if(preg_match("/select/i", $sql) || preg_match("/show/i", $sql)) {
           //$this->_result = $stat->setFetchMode(PDO::FETCH_ASSOC);
 
           $this->_result = $stat->fetchAll(PDO::FETCH_ASSOC);
@@ -256,5 +256,21 @@ class Db {
     $res = $this->sqlQuery($sql);
     return $res;
   }
+
+  public function getTableNamesInDb($db_name) {
+    $res = [];
+    $sql = "SHOW TABLES FROM {$db_name}";
+    $info = $this->sqlQuery($sql);
+    foreach ($info as $table) {
+      $res[] = $table['Tables_in_' . $db_name];
+    }
+    if($res) {
+      return $res;
+    } else {
+      return false;
+    }
+
+  }
+
 
 }

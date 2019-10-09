@@ -75,7 +75,14 @@ class UserModel {
   public function prepareSiteData($input_array = []) {
     if(isset($input_array)) {
       if($this->_sites) {
-        $i = count($this->_sites) + 1;
+        $i = 1;
+        $s_numb_arr = [];
+        foreach ($this->_sites as $site) {
+          $s_numb_arr[] = explode('-', $site['site_name'])[2];
+        }
+        while (in_array($i, $s_numb_arr)) {
+          $i += 1;
+        }
       } else {$i = 1;}
       $input_array['site_dir'] = $this->_uname . DS . 'site_' . $i;
       $input_array['site_name'] = $this->_uname . '-site-' . $i;
