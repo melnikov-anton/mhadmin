@@ -1,30 +1,11 @@
 <?php
   $fn = ROOT . DS . 'config' . DS . 'sidemenu.json';
-  //$fn = '../../config/sidemenu.json';
   $mstr = file_get_contents($fn);
-
-  //echo $mstr;
   $menu = json_decode($mstr, true);
-  //var_dump($menu);
+?>
 
-  //$cat = 'Admin';
-
-
-
-    echo '<ul class="nav nav-pills nav-justified flex-column">';
-    foreach ($menu[USER_ROLE] as $key => $val) {
-      if(is_array($val)) {
-        echo '<li class="nav-link">' . $key . '<ul class="nav nav-pills nav-justified flex-column">';
-        foreach ($val as $k => $v) {
-          echo '<li class="nav-item m-1">
-                  <a class="nav-link active" href="' . $v . '">' . $k . '</a>
-                </li>';
-        }
-        echo "</ul></li>";
-      }else {
-        echo '<li class="nav-item m-1">
-                <a class="nav-link active" href="' . $val . '">' . $key . '</a>
-              </li>';
-      }
-    }
-    echo '</ul>';
+  <div class="col-md-12 mx-auto mt-5">
+    <?php foreach ($menu[USER_ROLE] as $key => $val): ?>
+      <a href="<?php echo $val; ?>" class="btn btn-primary btn-block"><?php echo $key; ?></a>
+    <?php endforeach; ?>
+  </div>

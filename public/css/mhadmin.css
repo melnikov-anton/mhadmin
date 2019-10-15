@@ -1,0 +1,17 @@
+html, body {height: 100%;}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
+  background-color: lightblue;
+}
+
+.bg-orange {
+  background-color: orange;
+}
+
+.bg-lightgreen {
+  background-color: lightgreen;
+}
+
+.bg-lightblue {
+  background-color: rgb(33, 142, 242);
+}

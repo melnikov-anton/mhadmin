@@ -13,8 +13,6 @@ class View {
         $dbn_array = $this->getDbNames($user_sites);
         $table_names = [];
         $db_gen = Db::getConnection('', DB_USER, DB_PASSWORD);
-        //$dbn = 'mhadmin_db';
-        //$dbn_array[] = $dbn;
         foreach ($dbn_array as $dbname) {
           $table_names[] = [$dbname => $this->getStringFromArrayElements($db_gen->getTableNamesInDb($dbname))];
         }
