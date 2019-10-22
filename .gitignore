@@ -1,4 +1,8 @@
-/config/mhadmin.passwd
+/config/proftpd/mhadmin.passwd
 /phpmyadmin/*
+/public/phpmyadmin/*
 /app/temp/*
-/images/*
+/config/mysql/*
+/docker/mysql/*
+/public/images/*
+/log/*

@@ -316,7 +316,9 @@ class User {
 
 private function createFtpAccess($username, $user_pass) {
   $userdir = VHOSTS_DIR . DS . $username;
-  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' ' . $username . ' ' . $user_pass . ' ' . $userdir;
+  $password_file = PROFTPD_USERFILE_DIR . DS . PROFTPD_USER_FILE;
+  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' '
+        . $username . ' ' . $user_pass . ' ' . $userdir . ' ' . $password_file;
   exec($createftp_script_command, $output, $ret);
   if($ret == 0) {
     return true;

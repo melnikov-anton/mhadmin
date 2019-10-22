@@ -9,7 +9,7 @@
             <?php if($table): ?>
               <p>БД <b><?php echo $name;?></b> содержит следующие таблицы: <b><?php echo $table; ?></b>.</p>
             <?php else: ?>
-              <p>БД <b><?php echo $name;?></b> не содержат таблиц.</p>
+              <p>БД <b><?php echo $name;?></b> не содержит таблиц.</p>
             <?php endif; ?>
           <?php endforeach; ?>
         <?php endforeach; ?>
