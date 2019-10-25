@@ -27,7 +27,7 @@
 
         <div class="col-md-3 border border-primary bg-orange mh-100">
           <div class="row">
-              <div class="card mt-2 mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
+              <div class="card mt-2 mb-3 mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
                 <div class="card-body">
                     <h5>Имя пользователя: <span style="text-decoration: underline;font-size: 1.3em;"><b><?php echo $_SESSION['username']; ?></b></span></h5>
                     <?php if(constant('IS_ADMIN') == 'admin'): ?>
@@ -36,12 +36,14 @@
                 </div>
               </div>
           </div>
+          <hr>
           <div class="row">
-              <div class="col-md-12 mt-3">
+              <div class="col-md-12 mt-3 mb-3">
                   <?php include PAGES_DIR . DS . 'side_menu.php';?>
               </div>
           </div>
-          <div class="row mt-5">
+          <hr>
+          <div class="row mt-4">
             <?php include 'cards/useful_links_card.php'; ?>
           </div>
         </div>

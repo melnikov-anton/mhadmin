@@ -1,8 +1,8 @@
 /config/proftpd/mhadmin.passwd
-/phpmyadmin/*
 /public/phpmyadmin/*
 /app/temp/*
-/config/mysql/*
 /docker/mysql/*
+!/docker/mysql/.keep
 /public/images/*
 /log/*
+!/log/.keep

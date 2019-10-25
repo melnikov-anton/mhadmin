@@ -1,4 +1,4 @@
-<div class="card mt-2 mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
+<div class="card mx-auto border border-primary rounded-lg bg-success text-white shadow-lg">
   <div class="card-body">
       <h5>Полезные статьи из Wikipedia:</h5>
       <div>

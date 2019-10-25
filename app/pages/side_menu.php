@@ -4,7 +4,7 @@
   $menu = json_decode($mstr, true);
 ?>
 
-  <div class="col-md-12 mx-auto mt-5">
+  <div class="col-md-12 mx-auto">
     <?php foreach ($menu[USER_ROLE] as $key => $val): ?>
       <a href="<?php echo $val; ?>" class="btn btn-primary btn-block"><?php echo $key; ?></a>
     <?php endforeach; ?>
