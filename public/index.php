@@ -1,7 +1,13 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+require_once('../env.php');
+
+if(defined('DEBUG') && constant('DEBUG') == true) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
+} else {
+  ini_set('display_errors', '0');
+}
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__, 2));
