@@ -361,5 +361,10 @@ public function test2Action() {
   print_data($ret);
 }
 
+public function adminerAction() {
+  require_once(ROOT . DS . 'adminer' . DS . 'adminer-4.7.2.php');
+
+}
+
 
 }

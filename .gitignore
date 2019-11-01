@@ -6,3 +6,4 @@
 /public/images/*
 /log/*
 !/log/.keep
+/adminer/*
