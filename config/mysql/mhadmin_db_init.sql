@@ -1,0 +1,31 @@
+
+CREATE OR REPLACE USER mhadmin IDENTIFIED BY 'mhadmin';
+GRANT ALL PRIVILEGES ON *.* TO 'mhadmin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE DATABASE IF NOT EXISTS mhadmin_db;
+USE mhadmin_db;
+
+CREATE TABLE users (
+  id_user SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fname VARCHAR(25) NOT NULL,
+  lname VARCHAR(45) NOT NULL,
+  username VARCHAR(15) NOT NULL,
+  password VARCHAR(70) NOT NULL,
+  email VARCHAR(254) DEFAULT NULL,
+  rest TINYTEXT DEFAULT NULL,
+  usertype ENUM('user','admin') NOT NULL DEFAULT 'user'
+);
+
+INSERT INTO users (fname, lname, username, password, usertype) VALUES
+('mhadmin', 'mhadmin', 'mhadmin', '$2y$10$oPyjWU0BHePU3G8JrX.MQO9gO/WEGR3cFRqlo2VPI0T/K3XmWkDPK', 'admin');
+
+CREATE TABLE sites (
+  id_site MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  site_dir VARCHAR(100) NOT NULL,
+  description TINYTEXT DEFAULT NULL,
+  site_name VARCHAR(100) NOT NULL,
+  db_name VARCHAR(25) NOT NULL,
+  id_user SMALLINT UNSIGNED NOT NULL
+);
