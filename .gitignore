@@ -1,4 +1,6 @@
 /config/proftpd/mhadmin.passwd
+/config/sites-config/*
+!/config/sites-config/.keep
 /public/phpmyadmin/*
 /app/temp/*
 /docker/mysql/*
@@ -7,3 +9,7 @@
 /log/*
 !/log/.keep
 /adminer/*
+/vhosts/*
+!/vhosts/.keep
+/archive/*
+!/archive/.keep

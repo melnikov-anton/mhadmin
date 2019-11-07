@@ -12,8 +12,8 @@ if(defined('DEBUG') && constant('DEBUG') == true) {
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__, 2));
 define('WORK_ROOT', dirname(__FILE__, 3));
-define('VHOSTS_DIR', WORK_ROOT . DS . 'vhosts');
-define('ARCHIVE_DIR', WORK_ROOT . DS . 'archive');
+define('VHOSTS_DIR', ROOT . DS . 'vhosts');
+define('ARCHIVE_DIR', ROOT . DS . 'archive');
 define('PAGES_DIR', ROOT . DS . 'app' . DS . 'pages');
 
 require_once(ROOT . DS . 'app' . DS . 'functions.php');
