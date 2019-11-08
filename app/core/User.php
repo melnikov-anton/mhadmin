@@ -91,7 +91,7 @@ class User {
       }
       if($db->saveSiteInDb($site_data)) {
         $this->createVirtualHost($site_data);
-        exec('service apache2 reload');
+        exec('sudo service apache2 reload');
         Router::redirectToSuccess(MSG_SITEREG_SUC);
       } else {
         Router::redirectToWrong(MSG_SITEREG_ERR);
@@ -310,7 +310,8 @@ class User {
     chgrp($site_conf_fn, 33);
     chmod($site_conf_fn, 0664);
     if(!is_link($site_conf_link)) {
-      symlink($site_conf_fn, $site_conf_link);
+      //symlink($site_conf_fn, $site_conf_link);
+      exec('sudo ln -sf ' . $site_conf_fn . ' ' . $site_conf_link);
     }
   }
 
@@ -321,6 +322,7 @@ class User {
           . $username . ' ' . $user_pass . ' ' . $userdir . ' ' . $password_file;
     exec($createftp_script_command, $output, $ret);
     if($ret == 0) {
+      exec('sudo service proftpd reload');
       return true;
     } else {
       return false;
