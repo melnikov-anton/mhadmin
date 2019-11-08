@@ -6,7 +6,7 @@ FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS mhadmin_db;
 USE mhadmin_db;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id_user SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fname VARCHAR(25) NOT NULL,
   lname VARCHAR(45) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE users (
 INSERT INTO users (fname, lname, username, password, usertype) VALUES
 ('mhadmin', 'mhadmin', 'mhadmin', '$2y$10$oPyjWU0BHePU3G8JrX.MQO9gO/WEGR3cFRqlo2VPI0T/K3XmWkDPK', 'admin');
 
-CREATE TABLE sites (
+CREATE TABLE IF NOT EXISTS sites (
   id_site MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
   site_dir VARCHAR(100) NOT NULL,
