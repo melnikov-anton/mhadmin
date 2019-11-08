@@ -3,6 +3,7 @@
 !/config/sites-config/.keep
 /public/phpmyadmin/*
 /app/temp/*
+/app/core/Test.php
 /docker/mysql/*
 !/docker/mysql/.keep
 /public/images/*

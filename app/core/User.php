@@ -314,57 +314,32 @@ class User {
     }
   }
 
-private function createFtpAccess($username, $user_pass) {
-  $userdir = VHOSTS_DIR . DS . $username;
-  $password_file = PROFTPD_USERFILE_DIR . DS . PROFTPD_USER_FILE;
-  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' '
-        . $username . ' ' . $user_pass . ' ' . $userdir . ' ' . $password_file;
-  exec($createftp_script_command, $output, $ret);
-  if($ret == 0) {
-    return true;
-  } else {
-    return false;
-  }
-
-}
-
-private function userHasDbAccount($user_id) {
-  $dbc = Db::getConnection();
-  $sd = $dbc->getSitesDataByUserId($user_id);
-  if($sd) {
-    foreach ($sd as $site) {
-      if($site['db_name']) {
-        return true;
-      }
+  private function createFtpAccess($username, $user_pass) {
+    $userdir = VHOSTS_DIR . DS . $username;
+    $password_file = PROFTPD_USERFILE_DIR . DS . PROFTPD_USER_FILE;
+    $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' '
+          . $username . ' ' . $user_pass . ' ' . $userdir . ' ' . $password_file;
+    exec($createftp_script_command, $output, $ret);
+    if($ret == 0) {
+      return true;
+    } else {
+      return false;
     }
-  } else {
-    return false;
+
   }
 
-}
-
-public function testAction() {
-  $username = 'antmel04';
-  $user_pass = '123';
-  $userdir = VHOSTS_DIR . DS . $username;
-  $createftp_script_command = ROOT . DS . 'shell' . DS . CREATE_FTP_SCRIPT . ' ' . $username . ' ' . $user_pass . ' ' . $userdir;
-  print_data($createftp_script_command);
-  exec($createftp_script_command, $output, $ret);
-  print_data($output);
-  print_data($ret);
-
-}
-
-public function test2Action() {
-  exec('ftpasswd --passwd --file=/var/www/mhadmin/config/mhadmin.passwd --name=antmel04 --delete-user', $output, $ret);
-  print_data($output);
-  print_data($ret);
-}
-
-public function adminerAction() {
-  require_once(ROOT . DS . 'adminer' . DS . 'adminer-4.7.2.php');
-
-}
-
+  private function userHasDbAccount($user_id) {
+    $dbc = Db::getConnection();
+    $sd = $dbc->getSitesDataByUserId($user_id);
+    if($sd) {
+      foreach ($sd as $site) {
+        if($site['db_name']) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
+  }
 
 }
