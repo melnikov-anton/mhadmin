@@ -33,7 +33,7 @@ then
   echo $userpass | ftpasswd --passwd --stdin --file="$passfile" --name="$username" --uid=33 --gid=33 --home="$userdir" --shell=/bin/false
   if [[ $? -eq 0 ]]
   then
-    service proftpd reload
+    sudo service proftpd reload
     exit 0
   else
     exit 6

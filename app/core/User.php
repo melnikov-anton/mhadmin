@@ -120,8 +120,12 @@ class User {
             exec($delete_script_command, $output, $ret);
             if($ret == 0) {
               $site_conf_fn = ROOT . DS . 'config' . DS . 'sites-config' . DS . $sd['site_name'] . '.conf';
+              $site_conf_link = APACHE_SITES_ENABLED_DIR . DS . $sd['site_name'] . '.conf';
               if(file_exists($site_conf_fn)) {
                 unlink($site_conf_fn);
+              }
+              if(file_exists($site_conf_link)) {
+                exec('sudo unlink ' . $site_conf_link);
               }
               $res = $db->deleteSiteById($site_id);
               if($dbname) {

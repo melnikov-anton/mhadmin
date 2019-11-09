@@ -3,8 +3,9 @@
 CURR_DIR=`pwd`
 SUDOERS_DIR='/etc/sudoers.d'
 SUDOERS_FILE='/etc/sudoers'
+MUST_DIR='/var/www/mhadmin'
 
-if [[ $CURR_DIR!="/var/www/mhadmin" ]]
+if [[ "$CURR_DIR" != "$MUST_DIR" ]]
   then
     echo "Приложение mhadmin должно располагаться в директории /var/www !"
     echo "Данный скрипт должен находиться в директории /var/www/mhadmin !"

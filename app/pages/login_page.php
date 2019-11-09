@@ -5,7 +5,6 @@
     <title>MH Admin: Вход</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--изменить ссылку на файл стилей-->
     <link rel="stylesheet" type="text/css" href="/css/mhadmin.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap_4.3.1.min.css">
 
