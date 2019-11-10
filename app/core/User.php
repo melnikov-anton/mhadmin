@@ -124,7 +124,7 @@ class User {
               if(file_exists($site_conf_fn)) {
                 unlink($site_conf_fn);
               }
-              if(file_exists($site_conf_link)) {
+              if(is_link($site_conf_link)) {
                 exec('sudo unlink ' . $site_conf_link);
               }
               $res = $db->deleteSiteById($site_id);

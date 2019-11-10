@@ -49,6 +49,9 @@ ln -sf $CURR_DIR/config/proftpd/conf.d/mhadmin.conf /etc/proftpd/conf.d/mhadmin.
 chown www-data:www-data archive vhosts
 chown -R www-data:www-data public config
 
+# Отключение режима отладки
+sed -i 's/\(.*DEBUG.*\)true/\1false/' ./env.php
+
 echo "Перезагрузка служб."
 service apache2 restart
 service proftpd restart

@@ -11,11 +11,16 @@ class Home {
   }
 
   public function logpageAction() {
-    require_once(ROOT . DS . 'app' . DS . 'pages' . DS . 'login_page.php');
+    require_once(PAGES_DIR . DS . 'login_page.php');
   }
 
   public function regpageAction() {
-    require_once(ROOT . DS . 'app' . DS . 'pages' . DS .'register_page.php');
+    require_once(PAGES_DIR . DS .'register_page.php');
+  }
+
+  public function aboutAction() {
+    require_once(PAGES_DIR . DS .'desc_page.php');
+
   }
 
   public function wrongAction() {
