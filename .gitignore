@@ -7,6 +7,7 @@
 /docker/mysql/*
 !/docker/mysql/.keep
 /public/images/*
+!/public/images/standup_cat2.png
 /log/*
 !/log/.keep
 /adminer/*

@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class UserController {
 
   public function loginAction() {
     if($_SERVER['REQUEST_METHOD']=='POST') {

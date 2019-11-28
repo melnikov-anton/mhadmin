@@ -1,6 +1,6 @@
 <?php
 
-class Home {
+class HomeController {
 
   public function indexAction() {
     if(isset($_SESSION['username'])) {

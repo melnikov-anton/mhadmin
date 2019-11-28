@@ -1,7 +1,7 @@
 <?php
 
 //-------------------------------
-define('DEFAULT_CONTROLLER', 'Home');
+define('DEFAULT_CONTROLLER', 'HomeController');
 
 //сообщения об ошибках
 define('MSG_404', 'Ресурс не найден!');
