@@ -314,7 +314,6 @@ class UserController {
     chgrp($site_conf_fn, 33);
     chmod($site_conf_fn, 0664);
     if(!is_link($site_conf_link)) {
-      //symlink($site_conf_fn, $site_conf_link);
       exec('sudo ln -sf ' . $site_conf_fn . ' ' . $site_conf_link);
     }
   }

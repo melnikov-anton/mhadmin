@@ -1,5 +1,6 @@
 <?php
 
+define('DEFAULT_USER_PASSWORD', '12345');
 //-------------------------------
 define('DEFAULT_CONTROLLER', 'HomeController');
 
