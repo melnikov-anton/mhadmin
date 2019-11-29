@@ -1,7 +1,8 @@
 <?php
 
+define('DEFAULT_USER_PASSWORD', '12345');
 //-------------------------------
-define('DEFAULT_CONTROLLER', 'Home');
+define('DEFAULT_CONTROLLER', 'HomeController');
 
 //сообщения об ошибках
 define('MSG_404', 'Ресурс не найден!');

@@ -41,6 +41,7 @@ chown www-data:www-data config/proftpd/mhadmin.passwd
 
 cp config/sudoers.d/www-data $SUDOERS_DIR/www-data
 chmod 0440 $SUDOERS_DIR/www-data
+chown root:root $SUDOERS_DIR/www-data
 
 ln -sf $CURR_DIR/config/apache2/mhadmin.conf /etc/apache2/sites-enabled/mhadmin.conf
 
@@ -48,6 +49,9 @@ ln -sf $CURR_DIR/config/proftpd/conf.d/mhadmin.conf /etc/proftpd/conf.d/mhadmin.
 
 chown www-data:www-data archive vhosts
 chown -R www-data:www-data public config
+
+# Отключение режима отладки
+sed -i 's/\(.*DEBUG.*\)true/\1false/' ./env.php
 
 echo "Перезагрузка служб."
 service apache2 restart

@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class UserController {
 
   public function loginAction() {
     if($_SERVER['REQUEST_METHOD']=='POST') {
@@ -124,7 +124,7 @@ class User {
               if(file_exists($site_conf_fn)) {
                 unlink($site_conf_fn);
               }
-              if(file_exists($site_conf_link)) {
+              if(is_link($site_conf_link)) {
                 exec('sudo unlink ' . $site_conf_link);
               }
               $res = $db->deleteSiteById($site_id);
@@ -314,7 +314,6 @@ class User {
     chgrp($site_conf_fn, 33);
     chmod($site_conf_fn, 0664);
     if(!is_link($site_conf_link)) {
-      //symlink($site_conf_fn, $site_conf_link);
       exec('sudo ln -sf ' . $site_conf_fn . ' ' . $site_conf_link);
     }
   }

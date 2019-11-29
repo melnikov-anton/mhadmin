@@ -53,8 +53,6 @@ class Db {
 
       if($stat->execute()) {
         if(preg_match("/select/i", $sql) || preg_match("/show/i", $sql)) {
-          //$this->_result = $stat->setFetchMode(PDO::FETCH_ASSOC);
-
           $this->_result = $stat->fetchAll(PDO::FETCH_ASSOC);
           $this->_numb = $stat->rowCount();
           $this->_lastInsertID = $this->_pdo->lastInsertId();
@@ -75,12 +73,6 @@ class Db {
     if(!isset($uname)) {return false;}
       $sql = "SELECT username, password FROM users WHERE username= ?";
       $res = $this->sqlQuery($sql, $uname);
-    /*  $stat = $this->_pdo->prepare($sql);
-      $stat->bindValue(':uname', $uname);
-      $stat->execute();
-      $this->_result = $stat->setFetchMode(PDO::FETCH_ASSOC);
-      $this->_result = $stat->fetchAll();*/
-
     if($this->_numb == 1) {
       if(password_verify($passw, $res[0]['password'])) {
         return true;
@@ -116,8 +108,6 @@ class Db {
     $fieldStr = rtrim($fieldStr, ',');
     $valStr = rtrim($valStr, ',');
     $sql = "INSERT IGNORE INTO users ({$fieldStr}) VALUES ({$valStr})";
-    //var_dump($sql);
-    //var_dump($values);
     if($this->sqlQuery($sql, $values)) {
       return true;
     } else {

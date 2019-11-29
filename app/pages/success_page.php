@@ -36,7 +36,7 @@ MSG;
 ?>
     <div class="row mt-3">
       <div class="col-md-4 mx-auto p-4">
-        <img src="/images/standup_cat.jpg" class="mx-auto d-block" alt="Success">
+        <img src="/images/standup_cat2.png" class="mx-auto d-block" alt="Success">
       </div>
     </div>
 

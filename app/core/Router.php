@@ -5,11 +5,10 @@ class Router {
   public static function route($url) {
 
     if(isset($url[0]) && $url[0] !== '') {
-      $controller = ucwords($url[0]);
+      $controller = ucwords($url[0]) . 'Controller';
     } else {
       $controller = DEFAULT_CONTROLLER;
     }
-    $controller_name = $controller;
     array_shift($url);
 
     if(isset($url[0]) && $url[0] !== '') {

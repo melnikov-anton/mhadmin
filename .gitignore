@@ -3,10 +3,13 @@
 !/config/sites-config/.keep
 /public/phpmyadmin/*
 /app/temp/*
-/app/core/Test.php
+/app/core/TestController.php
 /docker/mysql/*
 !/docker/mysql/.keep
+/docker/sites-enabled/*
+!/docker/sites-enabled/.keep
 /public/images/*
+!/public/images/standup_cat2.png
 /log/*
 !/log/.keep
 /adminer/*
