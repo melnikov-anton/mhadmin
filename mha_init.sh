@@ -41,6 +41,7 @@ chown www-data:www-data config/proftpd/mhadmin.passwd
 
 cp config/sudoers.d/www-data $SUDOERS_DIR/www-data
 chmod 0440 $SUDOERS_DIR/www-data
+chown root:root $SUDOERS_DIR/www-data
 
 ln -sf $CURR_DIR/config/apache2/mhadmin.conf /etc/apache2/sites-enabled/mhadmin.conf
 

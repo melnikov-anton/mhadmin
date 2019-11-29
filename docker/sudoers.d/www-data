@@ -1,0 +1,2 @@
+Cmnd_Alias SERVREL = /usr/sbin/service apache2 reload,/usr/sbin/service proftpd reload
+www-data ALL=(ALL) NOPASSWD:SERVREL,/bin/ln,/usr/bin/unlink
